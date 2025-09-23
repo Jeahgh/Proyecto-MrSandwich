@@ -1,0 +1,10 @@
+
+body {
+    min-height: 100vh;             /* Toda la altura de la pantalla */
+    display: flex;
+    flex-direction: column;        /* Colocar elementos en columna */
+}
+main {
+    flex: 1;                       /* Ocupar espacio entre navbar y footer */
+}
+ 
