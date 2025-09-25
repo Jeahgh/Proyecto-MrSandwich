@@ -27,12 +27,12 @@
 
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="carrito.html">
+                    <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
                         <i class="fa-solid fa-user"></i>
                     </a>
                 </li>
@@ -58,11 +58,101 @@
             </div>
         </section>
                 
-        <!-- Aquí va el resto de tu contenido -->
-        <section class="container-fluid px-5">
-            <h2> Productos</h2>
+        <section class="container my-5">
+          <h2 class="text-center mb-4">Categorías</h2>
+          <div class="row g-3">
+
+            <!-- Columna izquierda -->
+            <div class="col-md-6">
+              <div class="row g-3 h-100">
+
+                <!-- Sandwich -->
+                <div class="col-12">
+                  <div class="category-card position-relative overflow-hidden rounded shadow-sm">
+                    <img src="/src/img/sanwich.jpg" class="img-fluid w-100 h-100" alt="Sandwich Gourmet" style="object-fit: cover;">
+                    <div class="overlay position-absolute w-100 h-100 d-flex align-items-end">
+                      <p class="text-white fw-bold p-3 m-0">Sandwich Gourmet</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bebidas -->
+                <div class="col-6">
+                  <div class="category-card position-relative overflow-hidden rounded shadow-sm">
+                    <img src="/src/img/bebidas.jpg" class="img-fluid w-100 h-100" alt="Bebidas" style="object-fit: cover;">
+                    <div class="overlay position-absolute w-100 h-100 d-flex align-items-end">
+                      <p class="text-white fw-bold p-2 m-0">Bebidas</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Postres -->
+                <div class="col-6">
+                  <div class="category-card position-relative overflow-hidden rounded shadow-sm">
+                    <img src="/src/img/postre.jpg" class="img-fluid w-100 h-100" alt="Postres" style="object-fit: cover;">
+                    <div class="overlay position-absolute w-100 h-100 d-flex align-items-end">
+                      <p class="text-white fw-bold p-2 m-0">Postres</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Columna derecha: Wraps -->
+            <div class="col-md-6">
+              <div class="category-card position-relative overflow-hidden rounded shadow-sm h-100">
+                <img src="/src/img/wrap.jpg" class="img-fluid w-100 h-100" alt="Wraps" style="object-fit: cover;">
+                <div class="overlay position-absolute w-100 h-100 d-flex align-items-end">
+                  <p class="text-white fw-bold p-3 m-0">Wraps</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
     </main>
+
+    <!-- Offcanvasdel carrito -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+      <div class="offcanvas-header">
+        <h5 id="cartOffcanvasLabel">Carrito de Compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <p>Tu carrito está vacío.</p>
+        <div class="mt-3">
+          <button class="btn btn-success w-100">Ir a pagar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" placeholder="••••••">
+              </div>
+              <button type="submit" class="btn btn-warning w-100">Entrar</button>
+            </form>
+            <div class="text-center mt-3">
+              <small>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <footer class="bg-dark text-light py-3">
     <div class="container text-center">

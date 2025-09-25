@@ -7,4 +7,29 @@ body {
 main {
     flex: 1;                       /* Ocupar espacio entre navbar y footer */
 }
- 
+
+
+
+
+
+  /* para ver */
+
+
+  /* Fondo degradado para overlays */
+.overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
+  transition: all 0.3s ease-in-out;
+}
+
+  /* Hover: resaltar la imagen */
+.category-card:hover .overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+}
+
+.category-card img {
+    transition: transform 0.4s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.05); /* zoom suave */
+}
