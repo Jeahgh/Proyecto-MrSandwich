@@ -1,35 +1,198 @@
+/* ===== RESET BÁSICO ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+/* ===== ESTRUCTURA GENERAL ===== */
 body {
-    min-height: 100vh;             /* Toda la altura de la pantalla */
-    display: flex;
-    flex-direction: column;        /* Colocar elementos en columna */
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: #121212;          /* negro grisáceo elegante */
+  color: #f8f9fa;               /* texto claro */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 main {
-    flex: 1;                       /* Ocupar espacio entre navbar y footer */
+  flex: 1;                       /* empuja footer al final */
 }
 
-
-
-
-
-  /* para ver */
-
-
-  /* Fondo degradado para overlays */
-.overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
-  transition: all 0.3s ease-in-out;
+/* ===== NAVBAR ===== */
+.navbar {
+  background: #1a1a1a;           /* negro profundo */
+  border-bottom: 3px solid #f1c40f;
+}
+.navbar-brand {
+  color: #f1c40f !important;     /* amarillo gourmet */
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.nav-link {
+  color: #f8f9fa !important;
+  transition: color 0.3s;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: #f1c40f !important;
 }
 
-  /* Hover: resaltar la imagen */
-.category-card:hover .overlay {
-    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+/* ===== HERO (portada) ===== */
+.hero {
+  position: relative;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  background: url('/src/img/portada.jpg') center/cover no-repeat;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);  /* oscurece para mejor contraste */
+}
+.hero h1, .hero p, .hero a {
+  position: relative;            /* para quedar encima del overlay */
+}
+.hero .btn-warning {
+  background: #f1c40f;
+  border: none;
+  transition: all 0.3s;
+}
+.hero .btn-warning:hover {
+  background: #ffd60a;
+  transform: scale(1.05);
 }
 
+/* ===== CATEGORÍAS ===== */
+.category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  cursor: pointer;
+}
 .category-card img {
-    transition: transform 0.4s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.category-card:hover img {
+  transform: scale(1.05);         /* zoom suave */
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: end;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
+  transition: background 0.3s ease;
+}
+.category-card:hover .overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+}
+.overlay p {
+  color: #fff;
+  font-weight: bold;
+  margin: 0;
 }
 
-.category-card:hover img {
-    transform: scale(1.05); /* zoom suave */
+/* ===== MODALES ===== */
+.modal-content {
+  background: #1f1f1f;
+  color: #f8f9fa;
+  border-radius: 8px;
+}
+.modal-content .btn-warning {
+  background: #f1c40f;
+  border: none;
+}
+.modal-content .btn-warning:hover {
+  background: #ffd60a;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: #111;
+  color: #f8f9fa;
+  padding: 2rem 0;
+  border-top: 3px solid #f1c40f;
+  font-size: 0.95rem;
+}
+.footer h5 {
+  color: #f1c40f;
+  font-weight: 700;
+}
+.footer p {
+  color: #bbb;
+}
+.footer-links a {
+  color: #f8f9fa;
+  margin: 0 0.75rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover {
+  color: #f1c40f;
+}
+.footer-social a {
+  color: #f8f9fa;
+  margin: 0 0.5rem;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.footer-social a:hover {
+  color: #f1c40f;
+  transform: translateY(-3px);
+}
+
+
+/* ===== CARDS SIMPLES Y ELEGANTES ===== */
+.card {
+    background: #2d2d2d;
+    border: 1px solid #444;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-color: #ffc107;
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    color: #cccccc;
+    margin-bottom: 1rem;
+}
+
+.card-price {
+    color: #ffc107;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.card .btn-warning {
+    background: #ffc107;
+    border: none;
+    color: #000;
+    font-weight: 500;
+}
+
+.card .btn-warning:hover {
+    background: #e0a800;
+    transform: none;
 }
