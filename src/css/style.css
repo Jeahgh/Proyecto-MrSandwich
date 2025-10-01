@@ -196,3 +196,45 @@ main {
     background: #e0a800;
     transform: none;
 }
+
+/* ===== NOSOTROS ===== */
+.section-box {
+  background: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.section-box:hover {
+  transform: translateY(-3px);
+  border-color: #f1c40f;
+}
+
+.section-box h2 {
+  color: #f1c40f; /* títulos dorados */
+  font-weight: 700;
+}
+
+.section-box p {
+  color: #ddd;
+}
+
+/* Horarios */
+.schedule-list .list-group-item {
+  background: #2d2d2d;
+  color: #f8f9fa;
+  border: 1px solid #444;
+}
+.schedule-list .list-group-item:hover {
+  background: #333;
+}
+
+/* Mapa */
+.map-container {
+  border: 2px solid #444;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
