@@ -59,45 +59,95 @@
 
     <!-- Sándwich -->
     <section id="sandwich">
-        <h2 class="mb-3">Sándwich Gourmet</h2>
+        <h2 class="mb-3">Sándwich</h2>
         <div class="row g-4 mb-5">
+
+
+
+          <!-- Card -->
           <div class="col-md-3">
-            <div class="card h-100 shadow-sm">
-              <img src="/src/img/carta/hola.jpg" class="card-img-top" alt="Sandwich 1" style="object-fit: cover;">
+            <div class="card h-100 shadow-sm"
+                data-bs-toggle="modal" data-bs-target="#modalAliado"
+                style="cursor: pointer;">
+              <img src="/src/img/carta/ALIADO.jpg" class="card-img-top" alt="Aliado" style="object-fit: cover; height: 180px;">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Clásico</h5>
+                <h5 class="card-title">Aliado</h5>
                 <p class="card-text">$5.990</p>
                 <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
+
+          <!-- Modal Detalle -->
+          <div class="modal fade" id="modalAliado" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Imagen arriba sin cortar bruscamente -->
+                <div class="position-relative" style="height: 300px; overflow: hidden; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem;">
+                  
+                  <!-- Imagen principal centrada -->
+                  <img src="/src/img/carta/ALIADO.jpg" 
+                      style="width:100%; height:300px; object-fit: contain; position: relative; z-index:1;" 
+                      alt="Aliado">
+
+                  <!-- Fondo difuminado usando la misma imagen -->
+                  <div style="position:absolute; top:0; left:0; width:100%; height:100%; 
+                              background: url('/src/img/carta/ALIADO.jpg') center/cover no-repeat; 
+                              filter: blur(15px) brightness(0.6); 
+                              z-index:0;">
+                  </div>
+                </div>
+
+                <!-- Info -->
+                <div class="modal-body">
+                  <h4 class="fw-bold">Aliado</h4>
+                  <p>Pan artesanal, pollo grillado, vegetales frescos y salsa especial.</p>
+                  <p class="text-warning fw-bold fs-5">$5.990</p>
+                </div>
+
+                <!-- Footer con acción -->
+                <div class="modal-footer">
+                  <button class="btn btn-success">Agregar al carrito</button>
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich2.jpg" class="card-img-top" alt="Sandwich 2">
+              <img src="/src/img/carta/BASILICATA.jpg" class="card-img-top" alt="Sandwich 2">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich BBQ</h5>
+                <h5 class="card-title">Basilicata</h5>
                 <p class="card-text">$6.490</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
+
+
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich3.jpg" class="card-img-top" alt="Sandwich 3">
+              <img src="/src/img/carta/CAPRESE_VEGETARIANO.jpg" class="card-img-top" alt="Sandwich 3">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Italiano</h5>
+                <h5 class="card-title">Caprese Vegetariano</h5>
                 <p class="card-text">$6.990</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
+
+
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich4.jpg" class="card-img-top" alt="Sandwich 4">
+              <img src="/src/img/carta/CIABATTA_JAMON_SERRANO.jpg" class="card-img-top" alt="Sandwich 4">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Veggie</h5>
+                <h5 class="card-title">Ciabatta de Jamón Serrano</h5>
                 <p class="card-text">$5.490</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
@@ -107,45 +157,45 @@
 
     <!-- waps -->
     <section id="wraps">
-      <h2 class="mb-3">Wraps Gourmet</h2>
+      <h2 class="mb-3">Wraps</h2>
       <div class="row g-4 mb-5">
         <div class="col-md-3">
           <div class="card h-100 shadow-sm">
-            <img src="/src/img/sandwich1.jpg" class="card-img-top" alt="Sandwich 1">
+            <img src="/src/img/carta/Chicken_wrap.jpg" class="card-img-top" alt="Sandwich 1">
             <div class="card-body text-center">
-              <h5 class="card-title">Sandwich Clásico</h5>
+              <h5 class="card-title">Chicken Wrap</h5>
               <p class="card-text">$5.990</p>
-              <a href="#" class="btn btn-primary">Agregar</a>
+                <a href="#" class="btn btn-warning">Agregar</a>
             </div>
           </div>
         </div>
         <div class="col-md-3">
           <div class="card h-100 shadow-sm">
-            <img src="/src/img/sandwich2.jpg" class="card-img-top" alt="Sandwich 2">
+            <img src="/src/img/carta/fish_wrap.jpg" class="card-img-top" alt="Sandwich 2">
             <div class="card-body text-center">
-              <h5 class="card-title">Sandwich BBQ</h5>
+              <h5 class="card-title">Fish Wrap</h5>
               <p class="card-text">$6.490</p>
-              <a href="#" class="btn btn-primary">Agregar</a>
+                <a href="#" class="btn btn-warning">Agregar</a>
             </div>
           </div>
         </div>
         <div class="col-md-3">
           <div class="card h-100 shadow-sm">
-            <img src="/src/img/sandwich3.jpg" class="card-img-top" alt="Sandwich 3">
+            <img src="/src/img/carta/Mixto_wrap.jpg" class="card-img-top" alt="Sandwich 3">
             <div class="card-body text-center">
-              <h5 class="card-title">Sandwich Italiano</h5>
+              <h5 class="card-title">Street Wrap</h5>
               <p class="card-text">$6.990</p>
-              <a href="#" class="btn btn-primary">Agregar</a>
+                <a href="#" class="btn btn-warning">Agregar</a>
             </div>
           </div>
         </div>
         <div class="col-md-3">
           <div class="card h-100 shadow-sm">
-            <img src="/src/img/sandwich4.jpg" class="card-img-top" alt="Sandwich 4">
+            <img src="/src/img/carta/vegano_wrap.jpg" class="card-img-top" alt="Sandwich 4">
             <div class="card-body text-center">
-              <h5 class="card-title">Sandwich Veggie</h5>
+              <h5 class="card-title">vegi Wrap</h5>
               <p class="card-text">$5.490</p>
-              <a href="#" class="btn btn-primary">Agregar</a>
+                <a href="#" class="btn btn-warning">Agregar</a>
             </div>
           </div>
         </div>
@@ -159,41 +209,41 @@
         <div class="row g-4 mb-5">
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich1.jpg" class="card-img-top" alt="Sandwich 1">
+              <img src="/src/img/carta/chocotorta.jpg" class="card-img-top" alt="Sandwich 1">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Clásico</h5>
-                <p class="card-text">$5.990</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <h5 class="card-title">Chocotorta</h5>
+                <p class="card-text">$4.900</p>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich2.jpg" class="card-img-top" alt="Sandwich 2">
+              <img src="/src/img/carta/Brownie.jpg" class="card-img-top" alt="Sandwich 2">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich BBQ</h5>
-                <p class="card-text">$6.490</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <h5 class="card-title">Brownie</h5>
+                <p class="card-text">$2.990</p>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich3.jpg" class="card-img-top" alt="Sandwich 3">
+              <img src="/src/img/carta/Sniker_mani.jpg" class="card-img-top" alt="Sandwich 3">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Italiano</h5>
-                <p class="card-text">$6.990</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <h5 class="card-title">Sniker de Maní</h5>
+                <p class="card-text">$Sniker de Maní</p>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich4.jpg" class="card-img-top" alt="Sandwich 4">
+              <img src="/src/img/carta/Sniker_almedras.jpg" class="card-img-top" alt="Sandwich 4">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Veggie</h5>
-                <p class="card-text">$5.490</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <h5 class="card-title">Sniker de Almedras</h5>
+                <p class="card-text">$3.490</p>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
@@ -203,45 +253,45 @@
 
     <!-- bebidas -->
     <section id="bebidas">
-        <h2 class="mb-3">Sándwich Gourmet</h2>
+        <h2 class="mb-3">Bebidas</h2>
         <div class="row g-4 mb-5">
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich1.jpg" class="card-img-top" alt="Sandwich 1">
+              <img src="/src/img/carta/agua.jpg" class="card-img-top" alt="Sandwich 1">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Clásico</h5>
-                <p class="card-text">$5.990</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <h5 class="card-title">Agua</h5>
+                <p class="card-text">$2.000</p>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich2.jpg" class="card-img-top" alt="Sandwich 2">
+              <img src="/src/img/carta/druid.jpg" class="card-img-top" alt="Sandwich 2">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich BBQ</h5>
-                <p class="card-text">$6.490</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <h5 class="card-title">Druid - Té de limón</h5>
+                <p class="card-text">$3.000</p>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich3.jpg" class="card-img-top" alt="Sandwich 3">
+              <img src="/src/img/carta/sprite.jpg" class="card-img-top" alt="Sandwich 3">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Italiano</h5>
-                <p class="card-text">$6.990</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <h5 class="card-title">Sprite Zero 350ml</h5>
+                <p class="card-text">$2.300</p>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card h-100 shadow-sm">
-              <img src="/src/img/sandwich4.jpg" class="card-img-top" alt="Sandwich 4">
+              <img src="/src/img/carta/coac.jpg" class="card-img-top" alt="Sandwich 4">
               <div class="card-body text-center">
-                <h5 class="card-title">Sandwich Veggie</h5>
-                <p class="card-text">$5.490</p>
-                <a href="#" class="btn btn-primary">Agregar</a>
+                <h5 class="card-title">Coca-cola 350ml</h5>
+                <p class="card-text">$2.300</p>
+                <a href="#" class="btn btn-warning">Agregar</a>
               </div>
             </div>
           </div>
