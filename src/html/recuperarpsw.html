@@ -49,13 +49,21 @@
     function recuperarPassword() {
       let email = document.getElementById("emailRecover").value.trim();
 
-      if (email === "cliente1@sandwish.cl") {
+      // Escenario: Solicitud de recuperación válida
+      if (email === "cliente2@sandwich.cl") {
         alert("Se ha enviado un enlace de recuperación a tu correo.");
-        location.href = "/src/html/principal/index.html"; // Simula volver al inicio
+        // Redirige a la página para ingresar nueva contraseña
+        location.href = "/src/html/recuperarpsw2.html";
       } 
+      // Escenario: Correo no registrado
+      else if (email === "noexiste@sandwich.cl") {
+        alert("El correo ingresado no está registrado.");
+      }
+      // Escenario: Campos vacíos
       else if (email === "") {
         alert("Por favor, ingresa tu correo electrónico.");
-      } 
+      }
+      // Otros casos
       else {
         alert("El correo ingresado no está registrado.");
       }

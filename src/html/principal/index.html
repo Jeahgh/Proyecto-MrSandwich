@@ -9,42 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="/src/css/style.css">
 </head>
-  <script>
-    function registrarse(){
-      let email = document.getElementById("emailRegister").value;
-      let pass = document.getElementById("passRegister").value;
 
-      if (email == "cliente1@sandwish.cl" && pass == "clave2025"){
-        location.href = "/src/html/principal/carta.html";
-      }
-
-      if (email == "cliente2@sandwish.cl"){
-        alert("El correo ya está en uso");
-      }      
-
-      if (email == "nuevo@sandwish.cl" && pass == "abc"){
-        alert("La contraseña no cumple requisitos");
-      }      
-    }
-
-    function iniciarSesion(){
-      let email = document.getElementById("email").value;
-      let pass = document.getElementById("password").value;
-      let contador = 0;
-
-      if (email == "cliente1@sandwish.cl" && pass == "clave2025"){
-        location.href = "mispedidos.html";
-      } 
-      else if (email == "cliente1@sandwish.cl" && pass != "clave2025"){
-        alert("Contraseña incorrecta");
-        contador++;
-        if (contador >= 3){
-          alert("Cuenta Bloqueada.");
-        }
-      } 
-    }
-
-  </script>
 <body>
   
   <!--  barra de navegacion -->
@@ -258,5 +223,7 @@
     </div>
   </footer>
 
+  <script src="/src/JavaScript/modelo.js"></script>
+  <script src="/src/JavaScript/index.js"></script>
 </body>
 </html>

@@ -4,21 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carta</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
   <link rel="stylesheet" href="/src/css/style.css"/>
 </head>
 
 <body>
-
-  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid px-3">  
+    <div class="container-fluid px-3">
       <a class="navbar-brand" href="index.html">MrSandwich</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav me-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
@@ -29,7 +31,7 @@
 
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+            <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
               <i class="fa-solid fa-cart-shopping"></i>
             </a>
           </li>
@@ -51,15 +53,14 @@
     </div>
   </nav>
 
-  <!-- CONTENIDO PRINCIPAL -->
   <main class="container py-4">
-    <h1 class="text-center mb-4 text-warning">Carta</h1>
+    <h1 class="text-center mb-4 text-warning">Nuestra Carta</h1>
 
-    <!-- FILTROS -->
     <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
       <input id="busqueda" type="text" class="form-control w-50" placeholder="Buscar producto...">
-      <select id="filtroCategoria" class="form-select w-auto">
-        <option value="todos">Todas las categorías</option>
+
+      <select id="categoriaSelect" class="form-select w-auto">
+        <option value="all">Todos</option>
         <option value="sandwich">Sándwiches</option>
         <option value="wrap">Wraps</option>
         <option value="postre">Postres</option>
@@ -67,69 +68,19 @@
       </select>
     </div>
 
-    <!-- LISTA DE PRODUCTOS -->
-    <div id="productos" class="row g-4">
-      <!-- Sándwiches -->
-      <div class="col-md-3" data-nombre="Aliado" data-categoria="sandwich">
-        <div class="card h-100 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAliado" style="cursor:pointer;">
-          <img src="/src/img/carta/ALIADO.jpg" class="card-img-top" alt="Aliado" style="object-fit: cover; height:180px;">
-          <div class="card-body text-center">
-            <h5 class="card-title">Aliado</h5>
-            <p class="card-text">$5.990</p>
-            <a href="#" class="btn btn-warning">Agregar</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Wraps -->
-      <div class="col-md-3" data-nombre="Chicken Wrap" data-categoria="wrap">
-        <div class="card h-100 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalWrap" style="cursor:pointer;">
-          <img src="/src/img/carta/Chicken_wrap.jpg" class="card-img-top" alt="Chicken Wrap" style="object-fit: cover; height:180px;">
-          <div class="card-body text-center">
-            <h5 class="card-title">Chicken Wrap</h5>
-            <p class="card-text">$5.990</p>
-            <a href="#" class="btn btn-warning">Agregar</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Postres: Brownie (AHORA tarjeta abre modal) -->
-      <div class="col-md-3" data-nombre="Brownie" data-categoria="postre">
-        <div class="card h-100 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalBrownie" style="cursor:pointer;">
-          <img src="/src/img/carta/Brownie.jpg" class="card-img-top" alt="Brownie" style="object-fit: cover; height:180px;">
-          <div class="card-body text-center">
-            <h5 class="card-title">Brownie</h5>
-            <p class="card-text">$2.990</p>
-            <a href="#" class="btn btn-warning">Agregar</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bebidas: Coca-cola (AHORA tarjeta abre modal) -->
-      <div class="col-md-3" data-nombre="Coca-cola" data-categoria="bebida">
-        <div class="card h-100 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalCoca" style="cursor:pointer;">
-          <img src="/src/img/carta/coac.jpg" class="card-img-top" alt="Coca-cola" style="object-fit: cover; height:180px;">
-          <div class="card-body text-center">
-            <h5 class="card-title">Coca-cola 350ml</h5>
-            <p class="card-text">$2.300</p>
-            <a href="#" class="btn btn-warning">Agregar</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="secciones-productos"></div>
   </main>
 
-  <!-- MODALES (Aliado, Wrap, Brownie, Coca) -->
-  <div class="modal fade" id="modalAliado" tabindex="-1">
+  <div class="modal fade" id="productoModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div style="height:300px; overflow:hidden;">
-          <img src="/src/img/carta/ALIADO.jpg" class="img-fluid w-100" style="object-fit:cover; height:300px;" alt="Aliado">
+          <img id="modalImg" src="" class="img-fluid w-100" style="object-fit:cover; height:300px;">
         </div>
         <div class="modal-body">
-          <h4 class="fw-bold">Aliado</h4>
-          <p>Pan artesanal, pollo grillado, vegetales frescos y salsa especial.</p>
-          <p class="text-warning fw-bold">$5.990</p>
+          <h4 id="modalTitulo" class="fw-bold"></h4>
+          <p id="modalDescripcion"></p>
+          <p id="modalPrecio" class="text-warning fw-bold"></p>
         </div>
         <div class="modal-footer">
           <button class="btn btn-success">Agregar al carrito</button>
@@ -139,66 +90,6 @@
     </div>
   </div>
 
-  <div class="modal fade" id="modalWrap" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div style="height:300px; overflow:hidden;">
-          <img src="/src/img/carta/Chicken_wrap.jpg" class="img-fluid w-100" style="object-fit:cover; height:300px;" alt="Chicken Wrap">
-        </div>
-        <div class="modal-body">
-          <h4 class="fw-bold">Chicken Wrap</h4>
-          <p>Tortilla de trigo con pollo grillado, lechuga y salsa de yogurt.</p>
-          <p class="text-warning fw-bold">$5.990</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-success">Agregar al carrito</button>
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Nuevo: Modal Brownie -->
-  <div class="modal fade" id="modalBrownie" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div style="height:300px; overflow:hidden;">
-          <img src="/src/img/carta/Brownie.jpg" class="img-fluid w-100" style="object-fit:cover; height:300px;" alt="Brownie">
-        </div>
-        <div class="modal-body">
-          <h4 class="fw-bold">Brownie</h4>
-          <p>Brownie casero, chocolate intenso, con opción de helado (extra).</p>
-          <p class="text-warning fw-bold">$2.990</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-success">Agregar al carrito</button>
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Nuevo: Modal Coca-cola -->
-  <div class="modal fade" id="modalCoca" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div style="height:300px; overflow:hidden;">
-          <img src="/src/img/carta/coac.jpg" class="img-fluid w-100" style="object-fit:cover; height:300px;" alt="Coca-cola">
-        </div>
-        <div class="modal-body">
-          <h4 class="fw-bold">Coca-cola 350ml</h4>
-          <p>Bebida refrescante clásica, 350ml lata.</p>
-          <p class="text-warning fw-bold">$2.300</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-success">Agregar al carrito</button>
-          <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CARRITO -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas">
     <div class="offcanvas-header">
       <h5>Carrito de Compras</h5>
@@ -210,7 +101,6 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer class="footer mt-5">
     <div class="container-fluid px-5 d-flex flex-column flex-md-row justify-content-between align-items-center">
       <div class="footer-brand">
@@ -228,30 +118,8 @@
     </div>
   </footer>
 
-  <!-- SCRIPT FILTROS -->
-  <script>
-    const busqueda = document.getElementById('busqueda');
-    const filtroCategoria = document.getElementById('filtroCategoria');
-    const productos = document.querySelectorAll('#productos .col-md-3');
 
-    function filtrarProductos() {
-      const texto = busqueda.value.toLowerCase();
-      const categoria = filtroCategoria.value;
-
-      productos.forEach(card => {
-        const nombre = (card.dataset.nombre || '').toLowerCase();
-        const cat = (card.dataset.categoria || '').toLowerCase();
-
-        const coincideNombre = nombre.includes(texto);
-        const coincideCategoria = (categoria === "todos" || cat === categoria);
-
-        card.style.display = (coincideNombre && coincideCategoria) ? "block" : "none";
-      });
-    }
-
-    busqueda.addEventListener("input", filtrarProductos);
-    filtroCategoria.addEventListener("change", filtrarProductos);
-  </script>
-
+    <script src="/src/JavaScript/modelo.js"></script>
+    <script src="/src/JavaScript/carta.js"></script>
 </body>
 </html>
