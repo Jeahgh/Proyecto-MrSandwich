@@ -1,35 +1,14 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from routers import products, users, orders
-from .db import connect_db, close_db
 
-app = FastAPI(title="Mr. Sandwich API (MongoDB Version)")
+# 1. Creamos la app (¡el inicio de todo!) [cite: 155-156]
+app = FastAPI(title="Mr.Sandwich", version="1.0.0")
 
-# Permitir CORS (para luego conectar frontend)
-origins = [
-    "http://localhost:5500",
-    "http://127.0.0.1:5500",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True,
-)
+# 2. (¡Quitamos CORS y eventos de startup/shutdown!)
+#    Esto lo hace mucho más limpio para empezar.
 
-# Conexión a BD al iniciar
-@app.on_event("startup")
-async def startup_db():
-    await connect_db()
-
-@app.on_event("shutdown")
-async def shutdown_db():
-    await close_db()
-
-# Registrar routers
+# 3. Registramos los routers [cite: 219]
+#    Le decimos a la app principal dónde están las rutas.
 app.include_router(products.router, prefix="/products", tags=["products"])
 app.include_router(users.router, prefix="/users", tags=["users"])
 app.include_router(orders.router, prefix="/orders", tags=["orders"])
