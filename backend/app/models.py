@@ -1,9 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, List
 
-# Modelo simple, como en tu resumen .
-# Define solo los campos que el usuario debe enviar al CREAR.
-# No nos preocupamos por el 'id' aquí.
+
 
 class Product(BaseModel):
     name: str
@@ -19,6 +17,6 @@ class User(BaseModel):
 
 class Order(BaseModel):
     user_id: str
-    items: List[str]  # Suponemos que es una lista de IDs de productos
+    items: List[str]  
     total: float
     status: str = "pending"
