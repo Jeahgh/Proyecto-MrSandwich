@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, List
+from pydantic import BaseModel, EmailStr
 
 
 
@@ -20,3 +21,11 @@ class Order(BaseModel):
     items: List[str]  
     total: float
     status: str = "pending"
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
