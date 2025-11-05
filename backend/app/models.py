@@ -13,7 +13,7 @@ class Product(BaseModel):
 
 class User(BaseModel):
     email: str
-    full_name: Optional[str] = None
+    full_name: str
     password: Optional[str] = None
 
 class Order(BaseModel):
