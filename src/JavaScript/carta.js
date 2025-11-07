@@ -1,133 +1,200 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // --- Elementos principales de la página ---
   const secciones = document.getElementById('secciones-productos');
   const busqueda = document.getElementById('busqueda');
   const categoriaSelect = document.getElementById('categoriaSelect');
   
-  if (!secciones) {
-    return;
+  // --- Elementos del modal de DETALLE de producto ---
+  const modalTitulo = document.getElementById("modalTitulo");
+  const modalDescripcion = document.getElementById("modalDescripcion");
+  const modalPrecio = document.getElementById("modalPrecio");
+  const modalImg = document.getElementById("modalImg");
+  const modalBtnAgregar = document.querySelector('#productoModal .btn-success');
+  const productoModal = new bootstrap.Modal(document.getElementById("productoModal"));
+  
+  // --- Botones de Admin en el modal de DETALLE ---
+  const btnModalDelete = document.getElementById("btnModalDelete");
+  const btnModalEdit = document.getElementById("btnModalEdit"); 
+
+  // --- Elementos del modal de CONFIRMAR ELIMINACIÓN ---
+  const confirmDeleteModal = new bootstrap.Modal(document.getElementById("confirmDeleteModal"));
+  const btnConfirmDelete = document.getElementById("btnConfirmDelete");
+
+  // --- Elementos del modal de CREAR producto ---
+  const formCrearProducto = document.getElementById("formCrearProducto");
+  if (formCrearProducto) {
+    formCrearProducto.addEventListener("submit", crearProducto); 
+  }
+  
+  // --- Variables Globales ---
+  let productosDelBackend = []; 
+  let idParaEliminar = null; 
+
+  const titulos = { 
+    sandwich: "Sándwiches", 
+    wrap: "Wraps", 
+    postre: "Postres", 
+    bebida: "Bebidas" 
+  };
+
+  // ==========================================================
+  // FUNCIÓN PARA CREAR UN PRODUCTO
+  // ==========================================================
+  async function crearProducto(event) {
+    event.preventDefault(); 
+    
+    const name = document.getElementById("productName").value;
+    const category = document.getElementById("productCategory").value;
+    const price = parseFloat(document.getElementById("productPrice").value);
+    const image = document.getElementById("productImage").value;
+    const description = document.getElementById("productDescription").value;
+
+    if (!name || !category || !price) {
+      showAlert("Nombre, Categoría y Precio son obligatorios", "error");
+      return;
+    }
+    const data = { name, description, price, image, category };
+
+    try {
+      const response = await fetch("http://localhost:8000/products/", { 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        showAlert(errorData.detail || "No se pudo crear el producto", "error");
+        return;
+      }
+
+      const nuevoProducto = await response.json(); 
+      showAlert("Producto creado con éxito!", "ok");
+      
+      const modal = bootstrap.Modal.getInstance(document.getElementById("agregarProductoModal"));
+      modal.hide();
+      document.getElementById("formCrearProducto").reset();
+      
+      productosDelBackend.push(nuevoProducto); // Actualiza lista
+      renderizarCarta(); // Re-dibuja el DOM
+    } catch (err) {
+      console.error(err);
+      showAlert("Error al conectar con backend", "error");
+    }
   }
 
+  // ==========================================================
+  // FUNCIÓN PARA ELIMINAR UN PRODUCTO
+  // ==========================================================
+  async function eliminarProducto(id) {
+    if (!id) return; 
 
-  const productosData = [
-    // Sandwiches
-    { id: 1, nombre: "Lomo Kassler Tomates Horneados", categoria: "sandwich", precio: 5990, img: "/src/img/carta/lomo.jpg", descripcion: "El lomo kassler tiene ese toque ahumado que enamora, y cuando lo juntas con tomates que horneamos hasta que se caramelicen un poco… bueno, ya es otro nivel. Le ponemos rúcula fresca para ese contraste y nuestra mayonesa casera que redondea todo." },
-    { id: 2, nombre: "Pastrami Clásico", categoria: "sandwich", precio: 6990, img: "/src/img/carta/pastrami.jpg", descripcion: "Este es amor puro: pastrami de vacuno en su punto, con ese aderezo especial que preparamos (y no, no vamos a revelar el secreto). Gouda ahumado que se derrite suavecito y un coleslaw crujiente que le da frescura. Simple, pero adictivo." },
-    { id: 3, nombre: "Mortadella con Pistachos", categoria: "sandwich", precio: 6490, img: "/src/img/carta/mortadella.jpg", descripcion: "¿Probaste alguna vez mortadella artesanal estilo italiano? La nuestra tiene pistachos de verdad — se ven, se sienten. Mozzarella cremosa, rúcula y un toque de pesto. Es como un viaje directo a una trattoria." },
-    { id: 4, nombre: "Porchetta de Cerdo", categoria: "sandwich", precio: 6390, img: "/src/img/carta/porchetta.jpg", descripcion: "La porchetta viene jugosa y llena de sabor. Le sumamos crema de alcachofas, un toque de gorgonzola y rúcula. Es ese sandwich que ordenas cuando quieres algo distinto pero familiar a la vez." },
-    // Wraps
-    { id: 5, nombre: "Wrap de Pollo", categoria: "wrap", precio: 5990, img: "/src/img/carta/Chicken_wrap.jpg", descripcion: "Tiernas tiras de pollo grillado, lechuga fresca, tomate y un toque de mayonesa, todo envuelto en una suave tortilla. Un clásico que nunca falla." },
-    { id: 6, nombre: "Wrap de pescado", categoria: "wrap", precio: 5490, img: "/src/img/carta/fish_wrap.jpg", descripcion: "Trozos de pescado fresco y crujiente, mix de hojas verdes, un toque de limón y una suave salsa tártara. ¡Ligero, sabroso y diferente!" },
-    { id: 7, nombre: "Wrap Mixto", categoria: "wrap", precio: 6390, img: "/src/img/carta/Mixto_wrap.jpg", descripcion: "El balance perfecto. Jamón, queso, lechuga crujiente, tomate, zanahoria rallada y un toque de cebolla. ¡Completo y fresco!" },
-    { id: 8, nombre: "Wrap Vegano", categoria: "wrap", precio: 6190, img: "/src/img/carta/vegano_wrap.jpg", descripcion: "Sabor 100% vegetal. Una deliciosa base de hummus, palta (aguacate), pimentones asados y un mix de hojas verdes. Potente y delicioso." },
-    // Postres
-    { id: 9, nombre: "Brownie", categoria: "postre", precio: 2990, img: "/src/img/carta/Brownie.jpg", descripcion: "Brownie casero con chocolate intenso." },
-    { id: 10, nombre: "Sniker de maní", categoria: "postre", precio: 3500, img: "/src/img/carta/Sniker_mani.jpg", descripcion: "Una explosión de sabor. Barra de chocolate rellena con maní tostado, caramelo y nougat. Tu dosis de energía perfecta." },
-    { id: 11, nombre: "Sniker de almedras", categoria: "postre", precio: 3700, img: "/src/img/carta/Sniker_almedras.jpg", descripcion: "El toque premium. La clásica barra de chocolate y caramelo, ahora con el crujido elegante de almendras tostadas." },
-    { id: 12, nombre: "Chocotorta", categoria: "postre", precio: 3990, img: "/src/img/carta/chocotorta.jpg", descripcion: "La clásica torta argentina. Irresistibles capas de galletas de chocolate, dulce de leche y una suave crema. Simplemente infaltable." },
-    // Bebidas
-    { id: 13, nombre: "Coca-Cola 350ml", categoria: "bebida", precio: 2300, img: "/src/img/carta/coac.jpg", descripcion: "Bebida gaseosa clásica." },
-    { id: 14, nombre: "Sprite Zero 350ml", categoria: "bebida", precio: 2700, img: "/src/img/carta/sprite.jpg", descripcion: "Bebida gaseosa clásica." },
-    { id: 15, nombre: "Druid", categoria: "bebida", precio: 2500, img: "/src/img/carta/druid.jpg", descripcion: "Tè helado de limón." },
-    { id: 16, nombre: "Agua Mineral", categoria: "bebida", precio: 2000, img: "/src/img/carta/agua.jpg", descripcion: "Agua mineral con o sin gas." },
-  ];
+    try {
+      const response = await fetch(`http://localhost:8000/products/${id}`, {
+        method: "DELETE"
+      });
 
-  const titulos = { sandwich: "Sándwiches", wrap: "Wraps", postre: "Postres", bebida: "Bebidas" };
-  let categoriaSeleccionada = 'all';
-  let paginaActual = 1;
-  const productosPorPagina = 12;
+      if (!response.ok) {
+        throw new Error("Error al eliminar el producto desde la API");
+      }
 
-  // --- PAGINACIÓN (Elementos creados) ---
-  const paginacionDiv = document.createElement('div');
-  paginacionDiv.className = 'd-flex justify-content-center align-items-center mt-4 gap-3';
-  secciones.after(paginacionDiv);
-  const btnAnterior = document.createElement('button');
-  const btnSiguiente = document.createElement('button');
-  const paginaLabel = document.createElement('span');
-  btnAnterior.textContent = 'Anterior';
-  btnSiguiente.textContent = 'Siguiente';
-  btnAnterior.className = 'btn btn-outline-warning';
-  btnSiguiente.className = 'btn btn-outline-warning';
-  paginaLabel.className = 'fw-bold';
-  paginacionDiv.append(btnAnterior, paginaLabel, btnSiguiente);
+      showAlert("Producto eliminado con éxito", "ok");
+      
+      confirmDeleteModal.hide();
+      
+      // Actualiza la lista local
+      productosDelBackend = productosDelBackend.filter(p => p._id !== id);
+      
+      // Re-dibuja la carta
+      renderizarCarta();
 
+      idParaEliminar = null;
 
+    } catch (err) {
+      console.error(err);
+      showAlert(err.message, "error");
+    }
+  }
 
-
-
-
-
-
-    // --- FUNCIONES DE CARRITO ) ---
-  /**
-   * Agrega un producto o incrementa su cantidad.
-   * Llama a las funciones de modelo.js
-   */
-  function agregarProductoAlCarrito(productoId) {
-    let carrito = getCarrito(); // Llama a la función de modelo.js
-    const productoEnCarrito = carrito.find(p => p.id === productoId);
-
-    if (productoEnCarrito) {
-      productoEnCarrito.cantidad++;
-    } else {
-      const producto = productosData.find(p => p.id === productoId);
-      if (producto) {
-        carrito.push({ ...producto, cantidad: 1 });
+  // ==========================================================
+  // FUNCIÓN PARA OBTENER Y RENDERIZAR PRODUCTOS
+  // ==========================================================
+  
+  async function fetchYRenderizarProductos() {
+    try {
+      const response = await fetch("http://localhost:8000/products/");
+      if (!response.ok) {
+        throw new Error("No se pudieron cargar los productos del backend.");
+      }
+      productosDelBackend = await response.json(); 
+      renderizarCarta(); 
+    } catch (err) {
+      console.error(err);
+      if (secciones) {
+          secciones.innerHTML = `<p class="text-danger text-center fs-4">Error al cargar el menú.</p>`;
       }
     }
-    
-    guardarCarrito(carrito); // Llama a la función de modelo.js
-    actualizarCarritoHTML(); // Llama a la función de modelo.js
-    new bootstrap.Offcanvas(document.getElementById('cartOffcanvas')).show();
   }
 
-  /**
-   * Lógica de filtros
-   */
   function filtrarProductos(filtro = "", categoria = "all") {
-    const filtrados = productosData.filter(p =>
-      (categoria === "all" || p.categoria === categoria) &&
-      (p.nombre.toLowerCase().includes(filtro) || p.descripcion.toLowerCase().includes(filtro))
-    );
+    const filtroLower = filtro.toLowerCase();
+    const filtrados = productosDelBackend.filter(p => {
+      const coincideTexto = p.name.toLowerCase().includes(filtroLower) || 
+                            (p.description && p.description.toLowerCase().includes(filtroLower));
+      const coincideCategoria = categoria === "all" || p.category === categoria;
+      return coincideTexto && coincideCategoria;
+    });
     const categoryOrder = ["sandwich", "wrap", "postre", "bebida"];
-    filtrados.sort((a, b) => categoryOrder.indexOf(a.categoria) - categoryOrder.indexOf(b.categoria));
+    filtrados.sort((a, b) => categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b));
     return filtrados;
   }
 
   /**
-   * Lógica de renderizado de la carta
+   * Dibuja las tarjetas de producto en el HTML.
    */
-  function renderizarCarta(filtro = "", categoria = "all") {
-    const filtrados = filtrarProductos(filtro, categoria);
-    const totalPaginas = Math.ceil(filtrados.length / productosPorPagina);
-    if (paginaActual > totalPaginas) paginaActual = totalPaginas || 1;
+  function renderizarCarta(filtro = busqueda.value, categoria = categoriaSelect.value) {
+    if (!secciones) {
+        console.error("¡Error! No se encontró el div #secciones-productos en tu HTML.");
+        return;
+    }
 
-    const inicio = (paginaActual - 1) * productosPorPagina;
-    const fin = inicio + productosPorPagina;
-    const productosPagina = filtrados.slice(inicio, fin);
+    const productosFiltrados = filtrarProductos(filtro, categoria);
+    secciones.innerHTML = ""; 
 
-    secciones.innerHTML = ""; //    Limpiar secciones
+    if (productosFiltrados.length === 0) {
+      secciones.innerHTML = `<p class="text-center text-secondary fs-5">No se encontraron productos.</p>`;
+      return;
+    }
 
-    ["sandwich", "wrap", "postre", "bebida"].forEach(cat => {
-      const productosCat = productosPagina.filter(p => p.categoria === cat);
-      if (productosCat.length > 0) {
+    const categoriasPresentes = [...new Set(productosFiltrados.map(p => p.category))];
+    const categoryOrder = ["sandwich", "wrap", "postre", "bebida"];
+    categoriasPresentes.sort((a, b) => categoryOrder.indexOf(a) - categoryOrder.indexOf(b));
+
+    categoriasPresentes.forEach(cat => {
+      const productosDeEstaCategoria = productosFiltrados.filter(p => p.category === cat);
+      if (productosDeEstaCategoria.length > 0) {
         const titulo = document.createElement("h3");
         titulo.className = "text-warning mt-5 mb-3 fw-bold";
-        titulo.textContent = titulos[cat];
+        titulo.textContent = titulos[cat] || cat; 
         secciones.appendChild(titulo);
         const fila = document.createElement("div");
         fila.className = "row g-4";
-        productosCat.forEach(p => {
+        
+        productosDeEstaCategoria.forEach(p => {
           const col = document.createElement("div");
           col.className = "col-md-3";
+          const imgUrl = p.image || "https://via.placeholder.com/300x200.png?text=Mr.Sandwich";
+
+          // HTML de la tarjeta (SIN botón de eliminar)
           col.innerHTML = `
             <div class="card h-100 shadow-sm">
-              <img src="${p.img}" class="card-img-top" style="object-fit:cover; height:180px;">
+              <img src="${imgUrl}" class="card-img-top" style="object-fit:cover; height:180px;">
               <div class="card-body text-center d-flex flex-column">
-                <h5 class="card-title">${p.nombre}</h5>
-                <p class="card-text">$${p.precio.toLocaleString()}</p>
+                <h5 class="card-title">${p.name}</h5>
+                <p class="card-text text-warning fw-bold">$${p.price.toLocaleString('es-CL')}</p>
                 <div class="mt-auto">
-                  <a href="#" class="btn btn-warning btn-agregar-carta" data-id="${p.id}">Agregar</a>
-                  <a href="#" class="btn btn-outline-secondary btn-ver-detalle" data-id="${p.id}">
+                  <a href="#" class="btn btn-warning btn-agregar-carta" data-id="${p._id}">Agregar</a>
+                  <a href="#" class="btn btn-outline-secondary btn-ver-detalle" data-id="${p._id}">
                     <i class="fa-solid fa-eye"></i>
                   </a>
                 </div>
@@ -138,79 +205,91 @@ document.addEventListener('DOMContentLoaded', () => {
         secciones.appendChild(fila);
       }
     });
-
-    paginaLabel.textContent = `Página ${paginaActual} de ${totalPaginas || 1}`;
-    btnAnterior.disabled = paginaActual === 1;
-    btnSiguiente.disabled = paginaActual === totalPaginas || totalPaginas === 0;
   }
   
-  // --- LISTENERS ESPECÍFICOS DE CARTA.HTML ---
+  // ==========================================================
+  // LISTENERS (Escuchadores de eventos)
+  // ==========================================================
 
-  // Filtro de búsqueda
-  busqueda.addEventListener("input", e => {
-    paginaActual = 1;
-    renderizarCarta(e.target.value.toLowerCase(), categoriaSeleccionada);
-  });
+  if (busqueda) {
+    busqueda.addEventListener("input", () => renderizarCarta());
+  }
+  if (categoriaSelect) {
+    categoriaSelect.addEventListener("change", () => renderizarCarta());
+  }
 
-  // Filtro de categoría
-  categoriaSelect.addEventListener("change", e => {
-    categoriaSeleccionada = e.target.value;
-    paginaActual = 1;
-    renderizarCarta(busqueda.value.toLowerCase(), categoriaSeleccionada);
-  });
+  // Listener para los botones en las TARJETAS (Agregar y Ojo)
+  if (secciones) {
+    secciones.addEventListener('click', (e) => {
+      const botonAgregar = e.target.closest('.btn-agregar-carta');
+      const botonDetalle = e.target.closest('.btn-ver-detalle');
 
-  // Paginación
-  btnAnterior.addEventListener("click", () => {
-    if (paginaActual > 1) {
-      paginaActual--;
-      renderizarCarta(busqueda.value.toLowerCase(), categoriaSeleccionada);
-    }
-  });
-
-  btnSiguiente.addEventListener("click", () => {
-    const filtrados = filtrarProductos(busqueda.value.toLowerCase(), categoriaSeleccionada);
-    const totalPaginas = Math.ceil(filtrados.length / productosPorPagina);
-    if (paginaActual < totalPaginas) {
-      paginaActual++;
-      renderizarCarta(busqueda.value.toLowerCase(), categoriaSeleccionada);
-    }
-  });
-
-  // Botones "Agregar" y "Ver detalle" en las tarjetas
-  secciones.addEventListener('click', (e) => {
-    e.preventDefault(); 
-    const botonAgregar = e.target.closest('.btn-agregar-carta');
-    const botonDetalle = e.target.closest('.btn-ver-detalle');
-
-    if (botonAgregar) {
-      const productoId = parseInt(botonAgregar.dataset.id);
-      agregarProductoAlCarrito(productoId);
-    }
-
-    if (botonDetalle) {
-      const productoId = parseInt(botonDetalle.dataset.id);
-      const producto = productosData.find(p => p.id === productoId);
-      
-      if (producto) {
-        document.getElementById("modalTitulo").textContent = producto.nombre;
-        document.getElementById("modalDescripcion").textContent = producto.descripcion;
-        document.getElementById("modalPrecio").textContent = `$${producto.precio.toLocaleString()}`;
-        document.getElementById("modalImg").src = producto.img;
-        document.querySelector('#productoModal .btn-success').dataset.id = producto.id;
-        new bootstrap.Modal(document.getElementById("productoModal")).show();
+      if (botonAgregar) {
+        e.preventDefault(); 
+        const productoId = botonAgregar.dataset.id;
+        console.log("Agregar al carrito (ID):", productoId);
+        showAlert("Producto agregado (función pendiente)", "ok");
       }
-    }
-  });
 
-  // Botón "Agregar" DENTRO del modal
-  document.querySelector('#productoModal .btn-success').addEventListener('click', (e) => {
-    const productoId = parseInt(e.target.dataset.id);
-    if (productoId) {
-      agregarProductoAlCarrito(productoId);
-      bootstrap.Modal.getInstance(document.getElementById('productoModal')).hide();
-    }
-  });
+      // ESTA ES LA LÓGICA QUE ABRE EL OJO
+      if (botonDetalle) {
+        e.preventDefault(); 
+        const productoId = botonDetalle.dataset.id; // <-- AHORA ESTO TENDRÁ EL ID
+        const producto = productosDelBackend.find(p => p._id === productoId); 
+        
+        if (producto) {
+          modalTitulo.textContent = producto.name;
+          modalDescripcion.textContent = producto.description || "Sin descripción.";
+          modalPrecio.textContent = `$${producto.price.toLocaleString('es-CL')}`;
+          modalImg.src = producto.image || "https://via.placeholder.com/600x400.png?text=Mr.Sandwich";
+          
+          modalBtnAgregar.dataset.id = producto._id;
+          btnModalDelete.dataset.id = producto._id;
+          btnModalEdit.dataset.id = producto._id;
+          
+          productoModal.show(); // <-- La línea mágica
+        }
+      }
+    });
+  }
 
-  renderizarCarta();
+  // --- Listeners para los botones DENTRO del modal de detalle ---
+
+  if (modalBtnAgregar) {
+    modalBtnAgregar.addEventListener('click', (e) => {
+      const productoId = e.target.dataset.id;
+      if (productoId) {
+        console.log("Agregar al carrito (desde modal):", productoId);
+        showAlert("Producto agregado (función pendiente)", "ok");
+        productoModal.hide();
+      }
+    });
+  }
+
+  if (btnModalDelete) {
+    btnModalDelete.addEventListener('click', (e) => {
+      idParaEliminar = e.target.dataset.id; 
+      productoModal.hide();
+      confirmDeleteModal.show();
+    });
+  }
+
+  if (btnModalEdit) {
+    btnModalEdit.addEventListener('click', (e) => {
+      const productoId = e.target.dataset.id;
+      console.log("ID para Editar:", productoId);
+      showAlert("Función de Editar pendiente", "ok");
+    });
+  }
+
+  // --- Listener para el botón FINAL de confirmación ---
+  if (btnConfirmDelete) {
+    btnConfirmDelete.addEventListener('click', () => {
+      eliminarProducto(idParaEliminar);
+    });
+  }
+
+  // --- INICIO DE LA CARGA DE LA PÁGINA ---
+  fetchYRenderizarProductos();
 
 }); // Fin del DOMContentLoaded

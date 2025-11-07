@@ -102,3 +102,6 @@ function cerrarSesion() {
   showAlert("Sesión cerrada","ok");
   location.reload();
 }
+
+
+
