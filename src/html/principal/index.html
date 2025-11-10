@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inicio</title>
+  <!-- Bootstrap, FontAwesome y hoja de estilos -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,8 +14,7 @@
 <body>
   <div id="app-alert"></div>
 
-  
-  <!--  barra de navegacion -->
+  <!-- Navbar principal -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid px-3">  
       <a class="navbar-brand" href="index.html">MrSandwich</a>
@@ -22,6 +22,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="menu">
+            <!-- Menú de navegación principal -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
                 <li class="nav-item"><a class="nav-link" href="carta.html">Carta</a></li>
@@ -29,6 +30,7 @@
                 <li class="nav-item"><a class="nav-link" href="contacto.html">Contáctanos</a></li>
             </ul>
 
+            <!-- Icono de carrito y menú de usuario -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
@@ -39,29 +41,35 @@
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>
                     </a>
+                    
+                    <!-- Menú desplegable de usuario -->
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="/src/html/miperfil.html">Mi perfil</a></li>
-                        <li><a class="dropdown-item" href="/src/html/mispedidos.html">Mis pedidos</a></li>
-                        <li><a class="dropdown-item" href="/src/html/seguimiento.html">Seguimiento</a></li>
-                        <li><a class="dropdown-item" href="/src/html/gestor.html">Gestión de pedidos</a></li>
-                        <li><a class="dropdown-item" href="/src/html/reportes.html">Reportes</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión</a></li>
-                        <li>
+                        <li class="menu-item-autenticado"><a class="dropdown-item" href="/src/html/miperfil.html">Mi perfil</a></li>
+                        <li class="menu-item-autenticado"><a class="dropdown-item" href="/src/html/mispedidos.html">Mis pedidos</a></li>
+                        <li class="menu-item-autenticado"><a class="dropdown-item" href="/src/html/seguimiento.html">Seguimiento</a></li>
+                        <li class="menu-item-admin"><a class="dropdown-item" href="/src/html/gestor.html">Gestión de pedidos</a></li>
+                        <li class="menu-item-admin"><a class="dropdown-item" href="/src/html/reportes.html">Reportes</a></li>
+                        <li class="menu-item-autenticado"><hr class="dropdown-divider"></li>
+                        
+                        <li class="menu-item-no-autenticado"><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión</a></li>
+                        
+                        <li class="menu-item-autenticado">
                           <a class="dropdown-item text-danger" href="#" onclick="cerrarSesion()">
                             <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
                           </a>
                         </li>
                     </ul>
-                </li>
+                    </li>
             </ul>
       </div>
     </div>
   </nav>
 
-  <!-- contenido principal -->
+
+
+  <!-- Contenido principal -->
   <main>
-      <!-- imagen principal -->
+      <!-- fOTO PRINCIPAL -->
       <section class="hero position-relative text-light" 
           style="height: 60vh; background: url('/src/img/portada.jpg') center/cover no-repeat;">
       
@@ -78,15 +86,12 @@
           </div>
       </section>
       
-      <!-- categorias -->
+      <!-- Sección de categorías -->
       <section class="container my-5">
         <h2 class="text-center mb-4">Categorías</h2>
         <div class="row g-3">
-
-          <!-- Columna izquierda -->
           <div class="col-md-6">
             <div class="row g-3 h-100">
-
                 <div class="col-12">
                   <a href="/src/html/principal/carta.html#sandwiches">
                     <div class="category-card position-relative overflow-hidden rounded shadow-sm">
@@ -97,7 +102,6 @@
                     </div>  
                   </a>
                 </div>
-
                 <div class="col-6">
                   <a href="/src/html/principal/carta.html#bebidas">
                     <div class="category-card position-relative overflow-hidden rounded shadow-sm">
@@ -108,8 +112,6 @@
                     </div>
                   </a>
                 </div>
-
-
                 <div class="col-6">
                   <a href="/src/html/principal/carta.html#postres">
                     <div class="category-card position-relative overflow-hidden rounded shadow-sm">
@@ -122,8 +124,6 @@
                 </div>
             </div>
           </div>
-
-          <!-- Columna derecha -->
           <div class="col-md-6">
             <a href="/src/html/principal/carta.html#wraps">
               <div class="category-card position-relative overflow-hidden rounded shadow-sm h-100">
@@ -138,14 +138,12 @@
       </section>
   </main>
 
-
-  <!-- carrito de compras -->
+  <!-- Offcanvas del carrito -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
     <div class="offcanvas-header">
       <h5 id="cartOffcanvasLabel">Carrito de Compras</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
     </div>
-
     <div class="offcanvas-body">
       <p>Tu carrito está vacío.</p>
       <div class="mt-3">
@@ -154,7 +152,7 @@
     </div>
   </div>
 
-  <!-- modal login -->
+  <!-- Modal de inicio de sesión -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -185,7 +183,7 @@
     </div>
   </div>
 
-  <!-- modal registro -->
+  <!-- Modal de registro -->
   <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -207,7 +205,6 @@
               <label for="passRegister" class="form-label">Contraseña</label>
               <input type="password" class="form-control" id="passRegister">
             </div>
-
             <button type="button" onclick="registrarse(event)" class="btn btn-success w-100">
               Registrarse
             </button>
@@ -217,15 +214,13 @@
     </div>
   </div>
 
-  <!-- footer -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="container-fluid px-5 d-flex flex-column flex-md-row justify-content-between align-items-center">
       <div class="footer-brand">
         <h5 class="m-0">MrSandwich</h5>
         <p class="small m-0">Sabor gourmet desde 2025</p>
       </div>
-
-
       <div class="footer-social mt-3 mt-md-0">
         <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         <a href="#"><i class="fa-brands fa-instagram"></i></a>
@@ -237,11 +232,9 @@
     </div>
   </footer>
   
+  <!-- Scripts principales -->
   <script src="/src/JavaScript/modelo.js"></script>
   <script src="/src/JavaScript/index.js"></script>
-
   
-
 </body>
 </html>
-

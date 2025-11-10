@@ -3,9 +3,10 @@ from routers import products, users, orders
 from fastapi.middleware.cors import CORSMiddleware
 
 
-
+# Crear la instancia de la aplicación FastAPI
 app = FastAPI(title="Mr.Sandwich", version="1.0.0")
 
+# Configurar CORS para permitir solicitudes desde cualquier origen
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],   
@@ -14,10 +15,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Incluir los routers de los diferentes módulos
 app.include_router(products.router, prefix="/products", tags=["products"])
 app.include_router(users.router, prefix="/users", tags=["users"])
 app.include_router(orders.router, prefix="/orders", tags=["orders"])
 
-@app.get("/")
-async def root():
-    return {"message": "Mr. Sandwich API funcionando correctamente"}

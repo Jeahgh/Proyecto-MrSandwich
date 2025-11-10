@@ -1,4 +1,4 @@
-// ========== ALERTAS PROPIAS ========== //
+//  ALERTAS PROPIAS 
 function showAlert(msg, type = "ok") {
   const box = document.getElementById("app-alert");
   box.textContent = msg;
@@ -12,7 +12,7 @@ function showAlert(msg, type = "ok") {
 
 
 
-// ========== REGISTRO USUARIO ========== //
+// REGISTRO USUARIO 
 async function registrarse(event) {
   event.preventDefault();
 
@@ -25,8 +25,10 @@ async function registrarse(event) {
     return;
   }
 
+  // PREPARAR DATA
   const data = { full_name: name, email, password: pass };
 
+  // ENVÍO AL BACKEND /(fetch)
   try {
     const response = await fetch("http://localhost:8000/users/register", {
       method: "POST",
@@ -52,7 +54,7 @@ async function registrarse(event) {
 
 
 
-// ========== INICIAR SESIÓN ========== //
+// INICIAR SESIÓN
 async function iniciarSesion(event) {
   event.preventDefault();
 
@@ -61,6 +63,7 @@ async function iniciarSesion(event) {
 
   const data = { email, password: pass };
 
+  // ENVÍO AL BACKEND /(fetch)
   try {
     const response = await fetch("http://localhost:8000/users/login", {
       method: "POST",
@@ -74,13 +77,16 @@ async function iniciarSesion(event) {
       return;
     }
 
-    const result = await response.json();
+    // RESPUESTA EXITOSA
+    const result = await response.json(); 
 
-    // además del token, guardamos el email manualmente
+    // ALMACENAR EN LOCALSTORAGE la info del usuario
     localStorage.setItem("usuario", JSON.stringify({
       access_token: result.access_token,
-      email: email // ← esto viene del input
+      email: email, 
+      role: result.role 
     }));
+  
 
     showAlert("Bienvenido!","ok");
 
@@ -96,7 +102,7 @@ async function iniciarSesion(event) {
 
 
 
-// ========== CERRAR SESIÓN ========== //
+//CERRAR SESIÓN
 function cerrarSesion() {
   localStorage.removeItem("usuario");
   showAlert("Sesión cerrada","ok");
