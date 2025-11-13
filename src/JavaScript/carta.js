@@ -298,25 +298,30 @@ document.addEventListener('DOMContentLoaded', () => {
             if (botonAgregar) {
                 e.preventDefault(); 
                 const productoId = botonAgregar.dataset.id;
-                console.log("Agregar al carrito (ID):", productoId);
-                showAlert("Producto agregado (función pendiente)", "ok");
+                
+                // --- INICIO DEL CAMBIO ---
+                // Buscamos el producto en nuestra lista local para obtener los datos
+                const producto = productosDelBackend.find(p => p._id === productoId);
+                if (producto) {
+                    // Llamamos a la nueva función de modelo.js
+                    agregarAlCarrito(producto._id, producto.name, producto.price);
+                }
+                // --- FIN DEL CAMBIO ---
             }
 
             if (botonDetalle) {
+                // ... (esta parte no cambia)
                 e.preventDefault(); 
                 const productoId = botonDetalle.dataset.id; 
                 const producto = productosDelBackend.find(p => p._id === productoId); 
-                
                 if (producto) {
                     modalTitulo.textContent = producto.name;
                     modalDescripcion.textContent = producto.description || "Sin descripción.";
                     modalPrecio.textContent = `$${producto.price.toLocaleString('es-CL')}`;
                     modalImg.src = producto.image || "https://via.placeholder.com/600x200.png?text=Mr.Sandwich";
-                    
                     modalBtnAgregar.dataset.id = producto._id;
                     btnModalDelete.dataset.id = producto._id;
                     btnModalEdit.dataset.id = producto._id; 
-                    
                     productoModal.show();
                 }
             }
@@ -329,8 +334,16 @@ document.addEventListener('DOMContentLoaded', () => {
         modalBtnAgregar.addEventListener('click', (e) => {
             const productoId = e.target.dataset.id;
             if (productoId) {
-                console.log("Agregar al carrito (desde modal):", productoId);
-                showAlert("Producto agregado (función pendiente)", "ok");
+                
+                // --- INICIO DEL CAMBIO ---
+                // Buscamos el producto en nuestra lista local
+                const producto = productosDelBackend.find(p => p._id === productoId);
+                if (producto) {
+                    // Llamamos a la nueva función de modelo.js
+                    agregarAlCarrito(producto._id, producto.name, producto.price);
+                }
+                // --- FIN DEL CAMBIO ---
+                
                 productoModal.hide();
             }
         });

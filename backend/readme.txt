@@ -1,0 +1,3 @@
+Comando para instalar todas las dependencias
+
+pip install -r requirements.txt

@@ -49,4 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             item.style.display = 'block';
         });
     }
+
+    actualizarVistaCarrito();
+    actualizarIconoCarrito();
 });

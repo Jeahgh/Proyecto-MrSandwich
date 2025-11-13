@@ -191,15 +191,29 @@
     </div>
   </div>
 
-  <!-- Offcanvas del carrito -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas">
+<!-- ========= Carrito Offcanvas (ACTUALIZADO) ========= -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
     <div class="offcanvas-header">
-      <h5>Carrito de Compras</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      <h5 id="cartOffcanvasLabel">Carrito de Compras</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
     </div>
     <div class="offcanvas-body">
-      <p>Tu carrito está vacío.</p>
-      <a href="/src/html/confirmacion.html" class="btn btn-success w-100">Ir a pagar</a>
+      
+      <!-- 1. Aquí se dibujarán los productos -->
+      <div id="cart-items-container">
+        <p>Tu carrito está vacío.</p>
+      </div>
+      
+      <!-- 2. Aquí se dibujará el total -->
+      <div id="cart-total-container" class="mt-3 pt-3 border-top">
+        <!-- Total se inyectará aquí -->
+      </div>
+
+      <!-- 3. Aquí se mostrará el botón de pagar -->
+      <div id="cart-pay-button-container" class="mt-3">
+        <a href="/src/html/confirmacion.html" class="btn btn-success w-100">Ir a pagar</a>
+      </div>
+
     </div>
   </div>
 

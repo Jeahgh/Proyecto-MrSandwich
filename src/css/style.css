@@ -1,30 +1,29 @@
-/* ===== RESET BÁSICO ===== */
+/* ===== ESTILOS GENERALES ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ===== ESTRUCTURA GENERAL ===== */
 body {
   font-family: "Segoe UI", Tahoma, sans-serif;
-  background: #121212;          /* negro grisáceo elegante */
-  color: #f8f9fa;               /* texto claro */
+  background: #121212;
+  color: #f8f9fa;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 main {
-  flex: 1;                       /* empuja footer al final */
+  flex: 1;
 }
 
 /* ===== NAVBAR ===== */
 .navbar {
-  background: #1a1a1a;           /* negro profundo */
+  background: #1a1a1a;
   border-bottom: 3px solid #f1c40f;
 }
 .navbar-brand {
-  color: #f1c40f !important;     /* amarillo gourmet */
+  color: #f1c40f !important;
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -37,7 +36,7 @@ main {
   color: #f1c40f !important;
 }
 
-/* ===== HERO (portada) ===== */
+/* ===== HERO (PORTADA) ===== */
 .hero {
   position: relative;
   height: 60vh;
@@ -49,10 +48,10 @@ main {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.55);  /* oscurece para mejor contraste */
+  background: rgba(0,0,0,0.55);
 }
 .hero h1, .hero p, .hero a {
-  position: relative;            /* para quedar encima del overlay */
+  position: relative;
 }
 .hero .btn-warning {
   background: #f1c40f;
@@ -64,7 +63,7 @@ main {
   transform: scale(1.05);
 }
 
-/* ===== CATEGORÍAS ===== */
+/* ===== CATEGORÍAS (INDEX) ===== */
 .category-card {
   position: relative;
   overflow: hidden;
@@ -79,7 +78,7 @@ main {
   transition: transform 0.4s ease;
 }
 .category-card:hover img {
-  transform: scale(1.05);         /* zoom suave */
+  transform: scale(1.05);
 }
 .overlay {
   position: absolute;
@@ -99,7 +98,7 @@ main {
   margin: 0;
 }
 
-/* ===== MODALES ===== */
+/* ===== MODALES (Pop-ups) ===== */
 .modal-content {
   background: #1f1f1f;
   color: #f8f9fa;
@@ -113,7 +112,7 @@ main {
   background: #ffd60a;
 }
 
-/* ===== FOOTER ===== */
+/* ===== FOOTER (Pie de Página) ===== */
 .footer {
   background: #111;
   color: #f8f9fa;
@@ -128,15 +127,6 @@ main {
 .footer p {
   color: #bbb;
 }
-.footer-links a {
-  color: #f8f9fa;
-  margin: 0 0.75rem;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.footer-links a:hover {
-  color: #f1c40f;
-}
 .footer-social a {
   color: #f8f9fa;
   margin: 0 0.5rem;
@@ -149,42 +139,36 @@ main {
 }
 
 
-/* ===== CARDS SIMPLES Y ELEGANTES ===== */
+/* ===== TARJETAS DE PRODUCTOS (CARTA) ===== */
 .card {
     background: #2d2d2d;
     border: 1px solid #444;
     border-radius: 8px;
     transition: all 0.3s ease;
 }
-
 .card:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     border-color: #ffc107;
 }
-
 .card-img-top {
     height: 180px;
     object-fit: cover;
 }
-
 .card-title {
     color: #ffffff;
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
-
 .card-text {
     color: #cccccc;
     margin-bottom: 1rem;
 }
-
 .card-price {
     color: #ffc107;
     font-weight: bold;
     font-size: 1.1rem;
 }
-
 .card .btn-warning {
     background: #ffc107;
     border: none;
@@ -192,12 +176,7 @@ main {
     font-weight: 500;
 }
 
-.card .btn-warning:hover {
-    background: #e0a800;
-    transform: none;
-}
-
-/* ===== NOSOTROS ===== */
+/* ===== PÁGINA NOSOTROS ===== */
 .section-box {
   background: #1f1f1f;
   border: 1px solid #333;
@@ -206,32 +185,22 @@ main {
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   transition: transform 0.3s ease;
 }
-
 .section-box:hover {
   transform: translateY(-3px);
   border-color: #f1c40f;
 }
-
 .section-box h2 {
-  color: #f1c40f; /* títulos dorados */
+  color: #f1c40f;
   font-weight: 700;
 }
-
 .section-box p {
   color: #ddd;
 }
-
-/* Horarios */
 .schedule-list .list-group-item {
   background: #2d2d2d;
   color: #f8f9fa;
   border: 1px solid #444;
 }
-.schedule-list .list-group-item:hover {
-  background: #333;
-}
-
-/* Mapa */
 .map-container {
   border: 2px solid #444;
   border-radius: 10px;
@@ -239,7 +208,7 @@ main {
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
-/* ===== ALERTA GLOBAL ===== */
+/* ===== ALERTA GLOBAL (Popup de Éxito/Error) ===== */
 #app-alert {
   display: none;
   position: fixed;
@@ -255,8 +224,155 @@ main {
   transition: opacity 0.3s ease;
 }
 #app-alert.ok {
-  background: #28a745; /* verde éxito */
+  background: #28a745; /* verde */
 }
 #app-alert.error {
-  background: #dc3545; /* rojo error */
+  background: #dc3545; /* rojo */
 }
+
+/* ===== ESTILOS CARRITO v6 (Sobrio) ===== */
+
+/* --- Fondo y Cabecera del Carrito --- */
+.offcanvas {
+  background-color: #121212;
+  color: #f8f9fa;
+}
+.offcanvas-header {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #444;
+}
+.offcanvas-header .btn-close-white {
+  filter: invert(1) grayscale(100) brightness(200);
+}
+
+/* --- Cuerpo y Footer Fijo --- */
+.offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0; 
+}
+
+#cart-items-container {
+  flex-grow: 1; /* Crece para ocupar el espacio */
+  overflow-y: auto; /* Permite scroll si hay muchos items */
+  padding: 1rem;
+}
+
+#cart-empty-msg {
+  color: #888;
+  text-align: center;
+  margin-top: 3rem;
+  font-style: italic;
+}
+
+/* --- Cada Item (Diseño v6) --- */
+.cart-item {
+  background: transparent;
+  border-bottom: 1px solid #333; /* Borde sutil */
+  padding: 1rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.cart-item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+.cart-item-info .item-name {
+  color: #f8f9fa; /* Nombre en blanco */
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.cart-item-info .item-total-price {
+  color: #f1c40f; /* Precio total en amarillo */
+  font-weight: 700;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+/* --- Controles (+ / - / Quitar) --- */
+.cart-item-controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Espacio entre botones */
+}
+.cart-item-controls .quantity {
+  font-weight: 600;
+  font-size: 1.1rem;
+  min-width: 20px;
+  text-align: center;
+  color: #f8f9fa; /* NÚMERO EN BLANCO */
+}
+.cart-item-controls .btn-quantity {
+  color: #f1c40f;
+  border: 1px solid #f1c40f;
+  border-radius: 0.25rem; /* Botones cuadrados sutiles */
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+.cart-item-controls .btn-quantity:hover {
+  background: #f1c40f;
+  color: #121212;
+}
+.cart-item-remove-link {
+  color: #dc3545; /* Rojo */
+  text-decoration: none;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.cart-item-remove-link:hover {
+  color: #ff6b79;
+  text-decoration: underline;
+}
+
+/* --- Footer Fijo (Total y Pagar) --- */
+.cart-footer {
+  padding: 1rem;
+  background-color: #1a1a1a; 
+  border-top: 1px solid #444;
+  margin-top: auto; /* Esto lo empuja al fondo */
+}
+.cart-total-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem; 
+}
+.cart-total-display .total-label {
+  font-size: 1.1rem;
+  color: #ccc;
+  font-weight: 500;
+}
+.cart-total-display .total-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f1c40f; 
+}
+.btn-pagar {
+  background: #f1c40f;
+  border-color: #f1c40f;
+  color: #121212;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.75rem;
+}
+.btn-pagar:hover {
+  background: #ffd60a;
+  border-color: #ffd60a;
+  color: #121212;
+}
+
+/* ===== FIN: ESTILOS CARRITO v6 ===== */
