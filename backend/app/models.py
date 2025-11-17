@@ -1,9 +1,5 @@
-# formato de los modelos de datos
-from pydantic import BaseModel
-from typing import Optional, List
 from pydantic import BaseModel, EmailStr
-
-
+from typing import Optional, List
 
 class Product(BaseModel):
     name: str
@@ -28,8 +24,6 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
-
-# modelo para el token de autenticación
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -41,3 +35,12 @@ class EmailRequest(BaseModel):
 class ResetPasswordRequest(BaseModel):
     token: str
     new_password: str
+
+class UserUpdate(BaseModel):
+    full_name: str
+
+class Message(BaseModel):
+    name: str
+    email: EmailStr
+    message: str
+    type: str

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- Configuración básica y enlaces a estilos y scripts externos -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contacto</title>
@@ -15,7 +14,7 @@
   <!-- Contenedor para alertas dinámicas -->
   <div id="app-alert"></div>
 
-  <!-- Navbar principal -->
+  <!--Barra de Navegación -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid px-3">  
       <a class="navbar-brand" href="index.html">MrSandwich</a>
@@ -68,68 +67,85 @@
       </div>
     </div>
   </nav>
+
+
   
-  <!-- Contenido principal -->
+  <!--  Contenido Principal  -->
   <main class="container-fluid px-5">
     <h1 class="text-center mb-4">Contáctanos</h1>
 
     <div class="row py-5">
-      <!-- Imagen lateral -->
       <div class="col-md-6 d-flex align-items-center justify-content-center mb-4 mb-md-0">
         <img src="/src/img/contacto.jpg" alt="contacto" class="img-fluid rounded">
       </div>
 
-      <!-- Formulario de contacto -->
+      <!-- Formulario de Contacto -->
       <div class="col-md-6">
         <h2>Formulario de Contacto</h2>
-        <form>
+        
+        <form id="contactForm">
+          
           <div class="mb-3">
-            <label for="name" class="form-label">Nombre:</label>
-            <input type="text" class="form-control" id="name" required>
+            <label for="contactName" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="contactName" required autocomplete="name">
           </div>
+          
           <div class="mb-3">
-            <label for="email" class="form-label">Correo Electrónico:</label>
-            <input type="email" class="form-control" id="email" required>
+            <label for="contactEmail" class="form-label">Correo Electrónico:</label>
+            <input type="email" class="form-control" id="contactEmail" required autocomplete="email">
           </div>
+
           <div class="mb-3">
-            <label for="message" class="form-label">Mensaje:</label>
-            <textarea class="form-control" id="message" rows="5" required></textarea>
+            <label for="contactType" class="form-label">Tipo de solicitud:</label>
+            <select class="form-select" id="contactType" required>
+              <option value="" disabled selected>Selecciona un motivo...</option>
+              <option value="sugerencia">Sugerencia</option>
+              <option value="reclamo">Reclamo</option>
+              <option value="reembolso">Solicitud de Reembolso</option>
+              <option value="otro">Otro</option>
+            </select>
           </div>
+          
+          <div class="mb-3">
+            <label for="contactMessage" class="form-label">Mensaje:</label>
+            <textarea class="form-control" id="contactMessage" rows="5" required></textarea>
+          </div>
+          
           <div class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary" id="btnEnviarMensaje">Enviar Mensaje</button>
           </div>
         </form>
       </div>
+      <!--  Fin Formulario de Contacto  -->
+
     </div>
   </main>
 
-<!-- ========= Carrito Offcanvas (ACTUALIZADO) ========= -->
+  <!--  Carrito -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
     <div class="offcanvas-header">
       <h5 id="cartOffcanvasLabel">Carrito de Compras</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
     </div>
+    
     <div class="offcanvas-body">
-      
-      <!-- 1. Aquí se dibujarán los productos -->
-      <div id="cart-items-container">
-        <p>Tu carrito está vacío.</p>
-      </div>
-      
-      <!-- 2. Aquí se dibujará el total -->
-      <div id="cart-total-container" class="mt-3 pt-3 border-top">
-        <!-- Total se inyectará aquí -->
+      <div id="cart-items-container" class="flex-grow-1">
+        <p id="cart-empty-msg">Tu carrito está vacío.</p>
       </div>
 
-      <!-- 3. Aquí se mostrará el botón de pagar -->
-      <div id="cart-pay-button-container" class="mt-3">
-        <a href="/src/html/confirmacion.html" class="btn btn-success w-100">Ir a pagar</a>
+      <div class="cart-footer">
+        <div id="cart-total-container" class="cart-total-display">
+        </div>
+        <div id="cart-pay-button-container">
+          <a href="/src/html/confirmacion.html" class="btn btn-pagar w-100">Ir a Pagar</a>
+        </div>
       </div>
-
     </div>
   </div>
 
-  <!-- Modal de inicio de sesión -->
+
+
+  <!--  Modales de Login/Registro  -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -158,7 +174,6 @@
     </div>
   </div>
 
-  <!-- Modal de registro -->
   <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -187,7 +202,9 @@
     </div>
   </div>
 
-  <!-- Footer -->
+
+
+  <!--  Footer  -->
   <footer class="footer">
     <div class="container-fluid px-5 d-flex flex-column flex-md-row justify-content-between align-items-center">
       <div class="footer-brand">
@@ -205,9 +222,10 @@
     </div>
   </footer>
 
-  <!-- Scripts JS principales -->
+  <!--  Scripts  -->
   <script src="/src/JavaScript/modelo.js"></script>
   <script src="/src/JavaScript/index.js"></script>
+  <script src="/src/JavaScript/contacto.js"></script>
 
 </body>
 </html>
