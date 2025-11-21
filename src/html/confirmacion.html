@@ -4,69 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entrega y Pago</title>
+    <!-- Carga de Bootstrap y estilos globales -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/css/style.css">
 </head>
 <body>
 
-<div class="container mt-4">
+<!-- Contenedor donde se mostrarán alertas dinámicas -->
+<div id="app-alert"></div>
+
+<!-- Barra de navegación principal -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid px-3">
+      <a class="navbar-brand" href="/src/html/principal/index.html">MrSandwich</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menu">
+        <!-- Menú de navegación izquierdo -->
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="/src/html/principal/index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="/src/html/principal/carta.html">Carta</a></li>
+          <li class="nav-item"><a class="nav-link" href="/src/html/principal/nosotros.html">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="/src/html/principal/contacto.html">Contáctanos</a></li>
+        </ul>
+
+        <!-- Botón para volver a la tienda -->
+        <ul class="navbar-nav ms-auto">
+             <li class="nav-item">
+                <a class="nav-link" href="/src/html/principal/index.html">Volver a la tienda</a>
+             </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<main class="container mt-4 mb-5">
     
-    <!-- Título -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h2>Entrega</h2>
-        </div>
-    </div>
+    <h2 class="mb-4 text-white text-center">Finalizar Compra</h2>
 
-    <!-- Método de entrega -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h5>¿Cómo quieres tu pedido?</h5>
-            <div class="d-flex gap-3">
-                <button class="btn btn-outline-primary">Retiro en tienda</button>
-                <button class="btn btn-outline-primary">Delivery</button>
-            </div>
-        </div>
-    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            
+            <!-- Resumen del pedido -->
+            <h4 class="mb-3 text-white">Resumen del pedido</h4>
+            <div class="card bg-dark text-white border-secondary mb-4">
+                <div class="card-body">
+                    <!-- Aquí se cargan dinámicamente los productos del carrito -->
+                    <div id="resumen-items">
+                        <p class="text-muted text-center">Cargando productos...</p>
+                    </div>
+                    <hr class="border-secondary">
 
-    <!-- Sección pago -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h2>Pago</h2>
-        </div>
-    </div>
+                    <!-- Total a pagar -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 mb-0">Total a pagar</span>
+                        <span class="h4 text-white fw-bold mb-0" id="resumen-total">$0</span>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Medios de pago -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h5>Medios de pago</h5>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pago">
-                <label class="form-check-label">Tarjeta de crédito</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pago">
-                <label class="form-check-label">Tarjeta de débito</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pago">
-                <label class="form-check-label">Pago en el local</label>
-            </div>
-        </div>
-    </div>
+            <!-- Datos de entrega y pago -->
+            <h4 class="mb-3 text-white">Datos de Entrega y Pago</h4>
+            <div class="card bg-dark text-white border-secondary">
+                <div class="card-body">
+                    
+                    <!-- Selección del método de entrega -->
+                    <h5 class="card-title mb-3 text-white-50">1. Método de entrega</h5>
+                    <div class="d-flex gap-3 mb-3">
+                        <button id="btn-retiro" class="btn btn-outline-light w-50 active">
+                            <i class="fa-solid fa-store me-2"></i>Retiro en tienda
+                        </button>
+                        <button id="btn-delivery" class="btn btn-outline-light w-50">
+                            <i class="fa-solid fa-motorcycle me-2"></i>Delivery
+                        </button>
+                    </div>
 
-    <!-- Botón pagar y total -->
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <button class="btn btn-primary">Pagar ahora</button>
-                <div>
-                    <strong>Total a pagar: $42.000</strong>
+                    <!-- Campo visible solo si se selecciona delivery -->
+                    <div id="direccion-container" class="mb-4 p-3 border border-secondary rounded" style="display: none; background-color: #222;">
+                        <label class="form-label text-warning">Dirección de envío</label>
+                        <input type="text" id="input-direccion" class="form-control bg-dark text-white border-secondary" placeholder="Ej: Av. Siempre Viva 742, Depto 301">
+                        <div class="alert alert-info mt-2 mb-0 py-2 small">
+                            <i class="fa-solid fa-circle-info me-2"></i>Recuerda: Solo hacemos delivery en un radio de 3km a la redonda.
+                        </div>
+                    </div>
+
+                    <hr class="border-secondary">
+
+                    <!-- Selección del medio de pago -->
+                    <h5 class="card-title mb-3 text-white-50">2. Medio de pago</h5>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="pago" id="pagoTarjeta" value="tarjeta" checked>
+                        <label class="form-check-label" for="pagoTarjeta">
+                            Tarjeta de crédito / débito
+                        </label>
+                    </div>
+
+                    <!-- Formulario de datos de tarjeta -->
+                    <div id="form-tarjeta-container" class="p-3 mb-3 border border-secondary rounded" style="background-color: #222;">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label small text-secondary">Número de Tarjeta</label>
+                                <input type="text" id="card-number" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="0000 0000 0000 0000" maxlength="19">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small text-secondary">Fecha Exp (MM/AA)</label>
+                                <input type="text" id="card-expiry" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Ej: 12/25" maxlength="5">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small text-secondary">CVV (Reverso)</label>
+                                <input type="password" id="card-cvv" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Ej: 123" maxlength="3">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small text-secondary">Nombre del Titular</label>
+                                <input type="text" id="card-name" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Ej: JUAN PEREZ">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Opción de pago en el local -->
+                    <div class="form-check" id="container-pago-local">
+                        <input class="form-check-input" type="radio" name="pago" id="pagoLocal" value="local">
+                        <label class="form-check-label" for="pagoLocal">
+                            Pago en el local / contra entrega
+                        </label>
+                    </div>
+
+                    <!-- Mensaje visible si se selecciona pago en local -->
+                    <div id="msg-pago-local" class="alert alert-warning mt-2 py-2 small" style="display: none;">
+                        <i class="fa-solid fa-cash-register me-2"></i>Debes pasar por caja para pagar antes de recibir tu pedido.
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-</div>
+    <!-- Botón final para confirmar la compra -->
+    <div class="row justify-content-center mt-5"> <div class="col-md-8">
+            <button id="btn-finalizar-compra" class="btn btn-success w-100 py-2 fw-bold shadow">
+                Confirmar y Pagar
+            </button>
+        </div>
+    </div>
+
+</main>
+
+<!-- Scripts principales de la aplicación -->
+<script src="/src/JavaScript/modelo.js"></script>
+<script src="/src/JavaScript/index.js"></script>
+<script src="/src/JavaScript/confirmacion.js"></script>
 
 </body>
 </html>

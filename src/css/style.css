@@ -138,7 +138,6 @@ main {
   transform: translateY(-3px);
 }
 
-
 /* ===== TARJETAS DE PRODUCTOS (CARTA) ===== */
 .card {
     background: #2d2d2d;
@@ -208,7 +207,7 @@ main {
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
-/* ===== ALERTA GLOBAL (Popup de Éxito/Error) ===== */
+/* ===== ALERTA GLOBAL ===== */
 #app-alert {
   display: none;
   position: fixed;
@@ -224,15 +223,13 @@ main {
   transition: opacity 0.3s ease;
 }
 #app-alert.ok {
-  background: #28a745; /* verde */
+  background: #28a745;
 }
 #app-alert.error {
-  background: #dc3545; /* rojo */
+  background: #dc3545;
 }
 
 /* ===== ESTILOS CARRITO v6 (Sobrio) ===== */
-
-/* --- Fondo y Cabecera del Carrito --- */
 .offcanvas {
   background-color: #121212;
   color: #f8f9fa;
@@ -244,31 +241,25 @@ main {
 .offcanvas-header .btn-close-white {
   filter: invert(1) grayscale(100) brightness(200);
 }
-
-/* --- Cuerpo y Footer Fijo --- */
 .offcanvas-body {
   display: flex;
   flex-direction: column;
   padding: 0; 
 }
-
 #cart-items-container {
-  flex-grow: 1; /* Crece para ocupar el espacio */
-  overflow-y: auto; /* Permite scroll si hay muchos items */
+  flex-grow: 1;
+  overflow-y: auto;
   padding: 1rem;
 }
-
 #cart-empty-msg {
   color: #888;
   text-align: center;
   margin-top: 3rem;
   font-style: italic;
 }
-
-/* --- Cada Item (Diseño v6) --- */
 .cart-item {
   background: transparent;
-  border-bottom: 1px solid #333; /* Borde sutil */
+  border-bottom: 1px solid #333;
   padding: 1rem 0.5rem;
   margin-bottom: 0.5rem;
 }
@@ -279,19 +270,17 @@ main {
   margin-bottom: 0.75rem;
 }
 .cart-item-info .item-name {
-  color: #f8f9fa; /* Nombre en blanco */
+  color: #f8f9fa;
   font-weight: 600;
   font-size: 1.1rem;
 }
 .cart-item-info .item-total-price {
-  color: #f1c40f; /* Precio total en amarillo */
+  color: #f1c40f;
   font-weight: 700;
   font-size: 1.1rem;
   white-space: nowrap;
   margin-left: 1rem;
 }
-
-/* --- Controles (+ / - / Quitar) --- */
 .cart-item-controls-row {
   display: flex;
   justify-content: space-between;
@@ -300,19 +289,19 @@ main {
 .cart-item-controls {
   display: flex;
   align-items: center;
-  gap: 0.75rem; /* Espacio entre botones */
+  gap: 0.75rem;
 }
 .cart-item-controls .quantity {
   font-weight: 600;
   font-size: 1.1rem;
   min-width: 20px;
   text-align: center;
-  color: #f8f9fa; /* NÚMERO EN BLANCO */
+  color: #f8f9fa;
 }
 .cart-item-controls .btn-quantity {
   color: #f1c40f;
   border: 1px solid #f1c40f;
-  border-radius: 0.25rem; /* Botones cuadrados sutiles */
+  border-radius: 0.25rem;
   width: 28px;
   height: 28px;
   padding: 0;
@@ -326,7 +315,7 @@ main {
   color: #121212;
 }
 .cart-item-remove-link {
-  color: #dc3545; /* Rojo */
+  color: #dc3545;
   text-decoration: none;
   font-size: 0.9rem;
   background: none;
@@ -337,13 +326,11 @@ main {
   color: #ff6b79;
   text-decoration: underline;
 }
-
-/* --- Footer Fijo (Total y Pagar) --- */
 .cart-footer {
   padding: 1rem;
   background-color: #1a1a1a; 
   border-top: 1px solid #444;
-  margin-top: auto; /* Esto lo empuja al fondo */
+  margin-top: auto;
 }
 .cart-total-display {
   display: flex;
@@ -375,4 +362,121 @@ main {
   color: #121212;
 }
 
-/* ===== FIN: ESTILOS CARRITO v6 ===== */
+/* ===== ESTILOS SEGUIMIENTO (DISEÑO TARJETAS) ===== */
+.step-card {
+    display: flex;
+    align-items: center;
+    background-color: #1f1f1f;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    opacity: 0.4;
+}
+.step-card.active {
+    opacity: 1;
+    border-color: #f1c40f;
+    background-color: #252525;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transform: scale(1.02);
+}
+.step-card.completed {
+    opacity: 0.7;
+    border-color: #444;
+}
+.step-icon-box {
+    width: 50px;
+    height: 50px;
+    background-color: #121212;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+.step-card.active .step-icon-box {
+    background-color: #f1c40f;
+    color: #121212;
+}
+.step-card.completed .step-icon-box {
+    color: #f1c40f;
+    border: 1px solid #f1c40f;
+}
+.step-info h5 {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 600;
+}
+.step-card.active .step-info h5 {
+    color: #f1c40f;
+}
+.step-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+
+/* ===== ESTILOS GESTOR (DARK MODE) ===== */
+/* Tabla de Pedidos */
+.table-admin {
+    background-color: #1a1a1a; /* Negro de fondo para la tabla */
+    color: #fff; /* Texto blanco */
+    border: 1px solid #333;
+}
+.table-admin th {
+    background-color: #252525; /* Cabecera un poco más clara */
+    color: #f1c40f; /* Texto amarillo */
+    border-bottom: 2px solid #444;
+    border-top: none;
+    font-weight: 600;
+    padding: 1rem;
+}
+.table-admin td {
+    background-color: #1a1a1a;
+    color: #e0e0e0; /* Blanco grisáceo para no cansar la vista */
+    border-bottom: 1px solid #333;
+    padding: 1rem;
+    vertical-align: middle;
+}
+.table-admin tbody tr:hover td {
+    background-color: #222; /* Hover muy sutil */
+    color: #fff;
+}
+
+/* Inputs dentro de la tabla (Repartidor, Select) */
+.form-control-dark, .form-select-dark {
+    background-color: #121212;
+    border: 1px solid #444;
+    color: #fff;
+    font-size: 0.9rem;
+}
+.form-control-dark:focus, .form-select-dark:focus {
+    background-color: #000;
+    border-color: #f1c40f;
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Badge del ID (Estilo código) */
+.badge-id {
+    font-family: monospace;
+    color: #f1c40f;
+    background-color: #222;
+    border: 1px solid #444;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+/* Textos secundarios (fecha, dirección) */
+.text-subtle {
+    color: #888;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}

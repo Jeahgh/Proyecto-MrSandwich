@@ -5,7 +5,7 @@ from bson import ObjectId
 
 router = APIRouter()
 
-# 1. CREAR Producto
+# CREAR Producto
 @router.post("/", response_model=Product)  
 async def create_product(product: Product):
     product_data = product.model_dump()     
@@ -18,7 +18,7 @@ async def create_product(product: Product):
     return new_product
 
 
-# 2. LISTAR Productos 
+# LISTAR Productos 
 @router.get("/") 
 async def list_products():
     products_list = []
@@ -29,7 +29,7 @@ async def list_products():
     return products_list
 
 
-# 3. OBTENER un Producto
+# OBTENER un Producto
 @router.get("/{product_id}")
 async def get_product(product_id: str):
     if not ObjectId.is_valid(product_id):
@@ -67,7 +67,7 @@ async def update_product(product_id: str, product_data: Product):
         raise HTTPException(status_code=404, detail="Producto actualizado pero no encontrado")
 
 
-# 4. ELIMINAR un Producto
+# Eliminar Producto
 @router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_product(product_id: str):
     if not ObjectId.is_valid(product_id):

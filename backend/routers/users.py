@@ -22,7 +22,7 @@ from bson import ObjectId
 
 router = APIRouter()
 
-#  Endpoint 1: Registrar un Usuario 
+#  Registrar un Usuario 
 @router.post("/register", response_model=User)
 async def register_user(user_data: User):
     existing_user = await db["users"].find_one({"email": user_data.email})
@@ -44,7 +44,7 @@ async def register_user(user_data: User):
     return new_user
 
 
-#  Endpoint 2: Iniciar Sesión 
+#  Iniciar Sesión 
 @router.post("/login", response_model=Token)
 async def login_for_access_token(form_data: UserLogin):
     user_in_db = await db["users"].find_one({"email": form_data.email})
@@ -68,7 +68,7 @@ async def login_for_access_token(form_data: UserLogin):
     }
 
 
-#  Endpoint 3: Pedir Reseteo de Contraseña 
+#  Pedir Reseteo de Contraseña 
 @router.post("/request-password-reset", response_model=Token)
 async def request_password_reset(request: EmailRequest):
     user_in_db = await db["users"].find_one({"email": request.email})
@@ -85,7 +85,7 @@ async def request_password_reset(request: EmailRequest):
     return {"access_token": access_token, "token_type": "bearer", "role": "cliente"}
 
 
-#  Endpoint 4: Confirmar Reseteo de Contraseña 
+#  Confirmar Reseteo de Contraseña 
 @router.post("/reset-password")
 async def reset_password(request: ResetPasswordRequest):
     try:
@@ -113,13 +113,13 @@ async def reset_password(request: ResetPasswordRequest):
     return {"message": "Contraseña actualizada con éxito"}
 
 
-#  Endpoint 5: OBTENER mi perfil 
+#  OBTENER mi perfil 
 @router.get("/me", response_model=User)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     return current_user
 
 
-#  Endpoint 6: ACTUALIZAR mi perfil 
+#  ACTUALIZAR mi perfil 
 @router.put("/me", response_model=User)
 async def update_users_me(user_data: UserUpdate, current_user: User = Depends(get_current_user)):
     new_full_name = user_data.full_name
