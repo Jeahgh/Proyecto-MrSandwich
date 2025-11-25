@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inicio</title>
-  <!-- Bootstrap, FontAwesome y hoja de estilos -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,7 +13,6 @@
 <body>
   <div id="app-alert"></div>
 
-  <!-- Navbar principal -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid px-3">  
       <a class="navbar-brand" href="index.html">MrSandwich</a>
@@ -22,7 +20,6 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="menu">
-            <!-- Menú de navegación principal -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
                 <li class="nav-item"><a class="nav-link" href="carta.html">Carta</a></li>
@@ -30,7 +27,6 @@
                 <li class="nav-item"><a class="nav-link" href="contacto.html">Contáctanos</a></li>
             </ul>
 
-            <!-- Icono de carrito y menú de usuario -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
@@ -42,7 +38,6 @@
                         <i class="fa-solid fa-user"></i>
                     </a>
                     
-                    <!-- Menú desplegable de usuario -->
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li class="menu-item-autenticado"><a class="dropdown-item" href="/src/html/miperfil.html">Mi perfil</a></li>
                         <li class="menu-item-autenticado"><a class="dropdown-item" href="/src/html/mispedidos.html">Mis pedidos</a></li>
@@ -65,11 +60,7 @@
     </div>
   </nav>
 
-
-
-  <!-- Contenido principal -->
   <main>
-      <!-- fOTO PRINCIPAL -->
       <section class="hero position-relative text-light" 
           style="height: 60vh; background: url('/src/img/portada.jpg') center/cover no-repeat;">
       
@@ -86,14 +77,13 @@
           </div>
       </section>
       
-      <!-- Sección de categorías -->
       <section class="container my-5">
         <h2 class="text-center mb-4">Categorías</h2>
         <div class="row g-3">
           <div class="col-md-6">
             <div class="row g-3 h-100">
                 <div class="col-12">
-                  <a href="/src/html/principal/carta.html#sandwiches">
+                  <a href="carta.html#sandwich">
                     <div class="category-card position-relative overflow-hidden rounded shadow-sm">
                       <img src="/src/img/sanwich.jpg" class="img-fluid w-100 h-100" alt="Sandwich Gourmet" style="object-fit: cover;">
                       <div class="overlay position-absolute w-100 h-100 d-flex align-items-end">
@@ -103,7 +93,7 @@
                   </a>
                 </div>
                 <div class="col-6">
-                  <a href="/src/html/principal/carta.html#bebidas">
+                  <a href="carta.html#bebida">
                     <div class="category-card position-relative overflow-hidden rounded shadow-sm">
                       <img src="/src/img/bebidas.jpg" class="img-fluid w-100 h-100" alt="Bebidas" style="object-fit: cover;">
                       <div class="overlay position-absolute w-100 h-100 d-flex align-items-end">
@@ -113,7 +103,7 @@
                   </a>
                 </div>
                 <div class="col-6">
-                  <a href="/src/html/principal/carta.html#postres">
+                  <a href="carta.html#postre">
                     <div class="category-card position-relative overflow-hidden rounded shadow-sm">
                       <img src="/src/img/postre.jpg" class="img-fluid w-100 h-100" alt="Postres" style="object-fit: cover;">
                       <div class="overlay position-absolute w-100 h-100 d-flex align-items-end">
@@ -125,7 +115,7 @@
             </div>
           </div>
           <div class="col-md-6">
-            <a href="/src/html/principal/carta.html#wraps">
+            <a href="carta.html#wrap">
               <div class="category-card position-relative overflow-hidden rounded shadow-sm h-100">
                 <img src="/src/img/wrap.jpg" class="img-fluid w-100 h-100" alt="Wraps" style="object-fit: cover;">
                 <div class="overlay position-absolute w-100 h-100 d-flex align-items-end">
@@ -138,32 +128,21 @@
       </section>
   </main>
 
-<!--  Carrito  -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
     <div class="offcanvas-header">
       <h5 id="cartOffcanvasLabel">Carrito de Compras</h5>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
     </div>
 
-    <!-- El body ahora es un flex-column para el footer pegajoso -->
     <div class="offcanvas-body">
       
-      <!-- 1. Contenedor de Items (con scroll) -->
       <div id="cart-items-container" class="flex-grow-1">
-        <!-- Los items se dibujarán aquí -->
         <p id="cart-empty-msg">Tu carrito está vacío.</p>
       </div>
       
-      <!-- 2. Footer Fijo (Total y Botón Pagar en bloques separados) -->
       <div class="cart-footer">
-        <!-- Contenedor para el Total (se rellena con JS) -->
         <div id="cart-total-container" class="cart-total-display">
-          <!-- JS insertará: 
-            <span class="total-label">Total:</span>
-            <span class="total-price">$12.345</span> 
-          -->
-        </div>
-        <!-- Contenedor para el Botón Pagar -->
+          </div>
         <div id="cart-pay-button-container">
           <a href="/src/html/confirmacion.html" class="btn btn-pagar w-100">Ir a Pagar</a>
         </div>
@@ -172,8 +151,6 @@
     </div>
   </div>
 
-
-  <!-- Modal de inicio de sesión -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -204,7 +181,6 @@
     </div>
   </div>
 
-  <!-- Modal de registro -->
   <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -235,7 +211,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container-fluid px-5 d-flex flex-column flex-md-row justify-content-between align-items-center">
       <div class="footer-brand">
@@ -253,7 +228,6 @@
     </div>
   </footer>
   
-  <!-- Scripts principales -->
   <script src="/src/JavaScript/modelo.js"></script>
   <script src="/src/JavaScript/index.js"></script>
   

@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // ocultar botones de admin si el usuario no es admin
@@ -57,17 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         bebida: "Bebidas" 
     };
 
-
-
-
-
-
-
-
-
-
-
-
     // crear un producto
     async function crearProducto(event) {
         event.preventDefault(); 
@@ -113,8 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-
     // editar un producto
     async function editarProducto(event) {
         event.preventDefault(); 
@@ -128,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const description = document.getElementById("productDescriptionEdit").value;
 
         const data = { name, description, price, image, category };
-
 
         // Llamada al backend con put
         try {
@@ -154,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showAlert("Error al conectar con backend", "error");
         }
     }
-
 
     // eliminar un producto
     async function eliminarProducto(id) {
@@ -189,8 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     // funcion de carga inicial de productos
+    // --- MODIFICADO: Incluye lógica de scroll ---
     async function fetchYRenderizarProductos() {
 
         // Llamada al backend para obtener productos
@@ -200,7 +184,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error("No se pudieron cargar los productos del backend.");
             }
             productosDelBackend = await response.json(); 
+            
+            // 1. Renderizar carta
             renderizarCarta(); 
+
+            // 2. MODIFICACIÓN: Scroll automático si hay un #hash en la URL
+            setTimeout(() => {
+                const hash = window.location.hash; // ejemplo: "#sandwich"
+                if (hash) {
+                    // Seleccionamos por ID (ej: <h3 id="sandwich">)
+                    // Quitamos el # para getElementById o usamos querySelector(hash)
+                    const elemento = document.querySelector(hash);
+                    if (elemento) {
+                        elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }, 100);
+
         } catch (err) {
             console.error(err);
             if (secciones) {
@@ -208,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-
 
     // funcion para filtrar productos
     function filtrarProductos(filtro = "", categoria = "all") {
@@ -224,8 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return filtrados;
     }
 
-
     // funcion para renderizar la carta con el filtro aplicado
+    // --- MODIFICADO: Agrega ID al título ---
     function renderizarCarta(filtro = busqueda.value, categoria = categoriaSelect.value) {
         if (!secciones) {
             console.error("¡Error! No se encontró el div #secciones-productos en tu HTML.");
@@ -240,13 +239,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoriasPresentes = [...new Set(productosFiltrados.map(p => p.category))];
         const categoryOrder = ["sandwich", "wrap", "postre", "bebida"];
         categoriasPresentes.sort((a, b) => categoryOrder.indexOf(a) - categoryOrder.indexOf(b));
+        
         categoriasPresentes.forEach(cat => {
             const productosDeEstaCategoria = productosFiltrados.filter(p => p.category === cat);
             if (productosDeEstaCategoria.length > 0) {
                 const titulo = document.createElement("h3");
+                
+                // --- CAMBIO AQUÍ: Asignar ID y Scroll Margin ---
+                titulo.id = cat; 
+                titulo.style.scrollMarginTop = "100px"; 
+                // ----------------------------------------------
+                
                 titulo.className = "text-warning mt-5 mb-3 fw-bold";
                 titulo.textContent = titulos[cat] || cat; 
                 secciones.appendChild(titulo);
+                
                 const fila = document.createElement("div");
                 fila.className = "row g-4";
                 productosDeEstaCategoria.forEach(p => {
@@ -274,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-
     // LISTENERS PRINCIPALES 
     if (busqueda) {
         busqueda.addEventListener("input", () => renderizarCarta());
@@ -289,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formEditarProducto.addEventListener("submit", editarProducto);
     }
 
-    // listener para el ojo
+    // listener para el ojo y agregar
     if (secciones) {
         secciones.addEventListener('click', (e) => {
             const botonAgregar = e.target.closest('.btn-agregar-carta');
@@ -299,18 +305,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault(); 
                 const productoId = botonAgregar.dataset.id;
                 
-                // --- INICIO DEL CAMBIO ---
                 // Buscamos el producto en nuestra lista local para obtener los datos
                 const producto = productosDelBackend.find(p => p._id === productoId);
                 if (producto) {
-                    // Llamamos a la nueva función de modelo.js
-                    agregarAlCarrito(producto._id, producto.name, producto.price);
+                    // Llamamos a la función de modelo.js (asegúrate de tener modelo.js cargado)
+                    if (typeof agregarAlCarrito === "function") {
+                        agregarAlCarrito(producto._id, producto.name, producto.price);
+                    } else {
+                        console.error("Función agregarAlCarrito no encontrada en modelo.js");
+                    }
                 }
-                // --- FIN DEL CAMBIO ---
             }
 
             if (botonDetalle) {
-                // ... (esta parte no cambia)
                 e.preventDefault(); 
                 const productoId = botonDetalle.dataset.id; 
                 const producto = productosDelBackend.find(p => p._id === productoId); 
@@ -328,22 +335,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     // listener para el boton agregar, editar y eliminar en el modal
     if (modalBtnAgregar) {
         modalBtnAgregar.addEventListener('click', (e) => {
             const productoId = e.target.dataset.id;
             if (productoId) {
-                
-                // --- INICIO DEL CAMBIO ---
-                // Buscamos el producto en nuestra lista local
                 const producto = productosDelBackend.find(p => p._id === productoId);
                 if (producto) {
-                    // Llamamos a la nueva función de modelo.js
-                    agregarAlCarrito(producto._id, producto.name, producto.price);
+                     if (typeof agregarAlCarrito === "function") {
+                        agregarAlCarrito(producto._id, producto.name, producto.price);
+                    }
                 }
-                // --- FIN DEL CAMBIO ---
-                
                 productoModal.hide();
             }
         });
